@@ -161,8 +161,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
         return rowCount;
     }
-    public String getUsername(String un)
-    {
-
-    }
+//    public String getUsername(String un)
+//    {
+//
+//    }
 }
