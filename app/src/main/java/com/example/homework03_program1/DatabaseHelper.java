@@ -52,12 +52,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
     public void Db_PopulateData()
     {
+        Log.d("Database Pop", "Database Pop");
         Db_PrefixesDData();
         Db_MajorsDData();
         Db_StudentDData();
-        Db_readStudentData();
-        Db_readMajorData();
         Db_readPrefixData();
+        Db_readMajorData();
+        Db_readStudentData();
 
     }
     private void Db_PrefixesDData()
@@ -136,7 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('idavis73', 'Isabella', 'Davis', 'idavis@msu.edu', 22, 2.9, 2);");
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('emartinez84', 'Ethan', 'Martinez', 'emartinez@my.monroeccc.edu', 19, 3.4, 1);");
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('alopez61', 'Ava', 'Lopez', 'alopez@umich.edu', 21, 3.6, 11);");
-            db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('ngonzalez05', 'Noah', 'Gonzalez', 'ngonzalez@emich.edu', 23, 2.7, 16);");
+            db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('ngonzalez05', 'Noah', 'Gonzalez', 'ngonzalez@emich.edu', 23, 2.7, 15);");
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('mwilson19', 'Mia', 'Wilson', 'mwilson@msu.edu', 20, 3.8, 10);");
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('aanderson37', 'Alexander', 'Anderson', 'aanderson@my.monroeccc.edu', 19, 2.4, 9);");
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('cthomas28', 'Charlotte', 'Thomas', 'cthomas@umich.edu', 21, 3.0, 5);");
@@ -144,7 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('hmoore11', 'Henry', 'Moore', 'hmoore@msu.edu', 19, 3.7, 12);");
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('ggarcia94', 'Grace', 'Garcia', 'ggarcia@my.monroeccc.edu', 20, 3.3, 3);");
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('wthompson02', 'William', 'Thompson', 'wthompson@umich.edu', 23, 3.9, 8);");
-            db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('rlong88', 'Rachel', 'Long', 'rlong@emich.edu', 21, 2.6, 16);");
+            db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('rlong88', 'Rachel', 'Long', 'rlong@emich.edu', 21, 2.6, 15);");
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('jsmith66', 'Jacob', 'Smith', 'jsmith@msu.edu', 22, 3.4, 15);");
             db.close();
         }
@@ -154,17 +155,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
         db_listOfStudents = new ArrayList<>();
+        int i = 0;
         if(db_sdataCursor.moveToFirst())
         {
             do {
 //                int pos = db_sdataCursor.getInt(6);
 //                String sdMajor = MajorData.PassMajorData.getMp_MajorName(pos);
+                Log.d("readStuData", "ReadStuData" + i);
                 db_listOfStudents.add(new StudentData(db_sdataCursor.getString(0),
                         db_sdataCursor.getString(1),
                         db_sdataCursor.getString(2),
                         db_sdataCursor.getString(3),
                         db_sdataCursor.getInt(4),
                         db_sdataCursor.getDouble(5)));
+                i++;
             }while(db_sdataCursor.moveToNext());
         }
         db_sdataCursor.close();
@@ -200,25 +204,25 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         MajorData.PassMajorData.setMp_MajorPrefixes(db_listOfPrefixes);
     }
-    public ArrayList<StudentData> Db_passStudentData() // might not need // used to both save database to StudentData and return an ArrayList of the data
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
-        db_listOfStudents = new ArrayList<>();
-        if(db_sdataCursor.moveToFirst())
-        {
-            do {
-                db_listOfStudents.add(new StudentData(db_sdataCursor.getString(0),
-                        db_sdataCursor.getString(1),
-                        db_sdataCursor.getString(2),
-                        db_sdataCursor.getString(3),
-                        db_sdataCursor.getInt(4),
-                        db_sdataCursor.getDouble(5)));
-            }while(db_sdataCursor.moveToNext());
-        }
-        db_sdataCursor.close();
-        return db_listOfStudents;
-    }
+//    public ArrayList<StudentData> Db_passStudentData() // might not need // used to both save database to StudentData and return an ArrayList of the data
+//    {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
+//        db_listOfStudents = new ArrayList<>();
+//        if(db_sdataCursor.moveToFirst())
+//        {
+//            do {
+//                db_listOfStudents.add(new StudentData(db_sdataCursor.getString(0),
+//                        db_sdataCursor.getString(1),
+//                        db_sdataCursor.getString(2),
+//                        db_sdataCursor.getString(3),
+//                        db_sdataCursor.getInt(4),
+//                        db_sdataCursor.getDouble(5)));
+//            }while(db_sdataCursor.moveToNext());
+//        }
+//        db_sdataCursor.close();
+//        return db_listOfStudents;
+//    }
     public ArrayList<MajorData> Db_passMajorData() // might not need // used to both save database to MajorData and return an ArrayList of the data
     {
         SQLiteDatabase db = this.getReadableDatabase();

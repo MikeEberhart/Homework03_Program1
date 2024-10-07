@@ -25,7 +25,7 @@ public class MajorData
     }
     public String getMajorName()
     {
-        return md_majorName;
+        return PassMajorData.getMp_MajorName(md_majorId);
     }
     public String getMajorPrefix()
     {

@@ -7,6 +7,7 @@ package com.example.homework03_program1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -60,8 +61,10 @@ public class MainActivity extends AppCompatActivity
     }
     private void Main_PopData()
     {
+        Log.d("Main", "Main");
         dbHelper = new DatabaseHelper(this);
         dbHelper.Db_PopulateData();
+
 //        main_listOfMajors = MajorData.PassMajorData.getMp_allMajorNames();
         main_listOfStudents = StudentData.PassStudentData.getPassedStudentData();
         main_lv_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
