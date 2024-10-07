@@ -9,8 +9,8 @@
         android:id="@+id/tv_slCell_usernameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text=" Username:"
         android:textAlignment="textEnd"
         android:textColor="@color/lions_blue"
@@ -19,23 +19,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_slCell_lname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="1dp"
-        android:text="##############"
-        android:textAlignment="viewStart"
-        android:textSize="16sp"
+    <ImageView
+        android:id="@+id/iv_slCell_underlineThree"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tv_slCell_lnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/iv_slCell_underlineTwo" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_slCell_lname"
+        app:srcCompat="@drawable/blk_line_label" />
 
     <TextView
         android:id="@+id/tv_slCell_lnameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="Last Name:"
         android:textAlignment="textEnd"
@@ -45,21 +44,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_slCell_fnameLabel" />
 
-    <ImageView
-        android:id="@+id/iv_slCell_underlineTwo"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_slCell_fname"
-        app:layout_constraintHorizontal_bias="0.0"
+    <TextView
+        android:id="@+id/tv_slCell_fname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text="##############"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/tv_slCell_fnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_slCell_fname"
-        app:srcCompat="@drawable/blk_line_label" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_slCell_username" />
 
     <TextView
         android:id="@+id/tv_slCell_fnameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="First Name:"
         android:textAlignment="textEnd"
@@ -70,32 +71,22 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_slCell_usernameLabel" />
 
     <ImageView
-        android:id="@+id/iv_slCell_underlineThree"
+        android:id="@+id/iv_slCell_underlineTwo"
         android:layout_width="0dp"
-        android:layout_height="3dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_slCell_lname"
+        android:layout_height="4dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_slCell_lnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_slCell_lname"
-        app:srcCompat="@drawable/blk_line_label" />
-
-    <TextView
-        android:id="@+id/tv_slCell_fname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="##############"
-        android:textAlignment="viewStart"
-        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/tv_slCell_fnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_slCell_username" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_slCell_fname"
+        app:srcCompat="@drawable/blk_line_label" />
 
     <ImageView
         android:id="@+id/iv_slCell_underlineOne"
         android:layout_width="0dp"
-        android:layout_height="3dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_slCell_username"
+        android:layout_height="4dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tv_slCell_usernameLabel"
         app:layout_constraintTop_toBottomOf="@+id/tv_slCell_username"
@@ -105,12 +96,24 @@
         android:id="@+id/tv_slCell_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
         android:text="##############"
         android:textAlignment="viewStart"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/tv_slCell_usernameLabel"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_slCell_lname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
+        android:text="##############"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_slCell_lnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/iv_slCell_underlineTwo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

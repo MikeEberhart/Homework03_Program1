@@ -1,9 +1,13 @@
 package com.example.homework03_program1;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
@@ -11,18 +15,26 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final String STUDENTS_TABLE_NAME = "Students";
     private static final String MAJORS_TABLE_NAME = "Majors";
     private static final String PREFIXES_TABLE_NAME = "Prefixes";
-
+    ArrayList<StudentData>  db_listOfStudents;
+    ArrayList<MajorData> db_listOfMajors;
+    ArrayList<String> db_listOfMajNames;
+    ArrayList<String> db_listOfPrefixes;
 
     public DatabaseHelper(Context c)
     {
         // create database and give it a version number
         // change version number to populate a new db
-        super(c, DATABASE_NAME, null, 1);
+        super(c, DATABASE_NAME, null, 4);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
+        Db_CreateTables(db);
+    }
+    private void Db_CreateTables(SQLiteDatabase db)
+    {
+        Log.d("DB_OnCreate", "DB OnCreate Function");
         // create the tables in the db
         // create the tables backwards starting with the one with no foreign key
         // cannot create a table that uses a foreign key before the foreign key's table has been created
@@ -30,44 +42,27 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 "prefixName varchar(5));");
 
         db.execSQL("CREATE TABLE " + MAJORS_TABLE_NAME + " (majorId integer primary key autoincrement not null, " +
-                "majorName varchar(50), foreign key (prefixId) references " + PREFIXES_TABLE_NAME + "(prefixId));");
+                "majorName varchar(50), prefixId integer, foreign key (prefixId) references " + PREFIXES_TABLE_NAME + "(prefixId));");
 
         db.execSQL("CREATE TABLE " + STUDENTS_TABLE_NAME + " (username varchar(50) primary key not null, " +
-                "fname varchar(50), lname varchar(50), email varchar(60), age integer, gpa real, " +
-                "foreign key (majorId) references " + MAJORS_TABLE_NAME + "(majorId));");
-    }
+                "fname varchar(50), lname varchar(50), email varchar(60), age integer, gpa double, " +
+                "majorId integer, foreign key (majorId) references " + MAJORS_TABLE_NAME + "(majorId));");
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
-        db.execSQL("DROP TABLE IF EXISTS " + PREFIXES_TABLE_NAME + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + MAJORS_TABLE_NAME + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + STUDENTS_TABLE_NAME + ";");
-        onCreate(db);
-    }
 
-    //used for testing
-    public String getStudentDbName()
-    {
-        return STUDENTS_TABLE_NAME;
     }
-    public String getMajorsDbName()
+    public void Db_PopulateData()
     {
-        return MAJORS_TABLE_NAME;
+        Db_PrefixesDData();
+        Db_MajorsDData();
+        Db_StudentDData();
+        Db_readStudentData();
+        Db_readMajorData();
+        Db_readPrefixData();
+
     }
-    public String getPrefixesDbName()
+    private void Db_PrefixesDData()
     {
-        return PREFIXES_TABLE_NAME;
-    }
-    public void populateDummyData()
-    {
-        prefixesDData();
-        majorsDData();
-        studentDData();
-    }
-    private void prefixesDData()
-    {
-        if(recordCount(PREFIXES_TABLE_NAME) == 0)
+        if(RecordCount(PREFIXES_TABLE_NAME) == 0)
         {
             SQLiteDatabase db = this.getWritableDatabase();
             // insert predefined major prefix tags
@@ -100,9 +95,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.close();
         }
     }
-    private void majorsDData()
+    private void Db_MajorsDData()
     {
-        if(recordCount(MAJORS_TABLE_NAME) == 0)
+        if(RecordCount(MAJORS_TABLE_NAME) == 0)
         {
             SQLiteDatabase db = this.getWritableDatabase();
             // insert dummy data here
@@ -125,9 +120,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.close();
         }
     }
-    private void studentDData()
+    private void Db_StudentDData()
     {
-        if(recordCount(STUDENTS_TABLE_NAME) == 0)
+        if(RecordCount(STUDENTS_TABLE_NAME) == 0)
         {
             SQLiteDatabase db = this.getWritableDatabase();
             // insert dummy data here
@@ -154,15 +149,153 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.close();
         }
     }
-    private int recordCount(String tname)
+    public void Db_readStudentData() // saving data from STUDENT_TABLE_NAME to StudentData
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
+        db_listOfStudents = new ArrayList<>();
+        if(db_sdataCursor.moveToFirst())
+        {
+            do {
+//                int pos = db_sdataCursor.getInt(6);
+//                String sdMajor = MajorData.PassMajorData.getMp_MajorName(pos);
+                db_listOfStudents.add(new StudentData(db_sdataCursor.getString(0),
+                        db_sdataCursor.getString(1),
+                        db_sdataCursor.getString(2),
+                        db_sdataCursor.getString(3),
+                        db_sdataCursor.getInt(4),
+                        db_sdataCursor.getDouble(5)));
+            }while(db_sdataCursor.moveToNext());
+        }
+        db_sdataCursor.close();
+        StudentData.PassStudentData.setPassedStudentData(db_listOfStudents);
+    }
+    public void Db_readMajorData() // saving data from MAJOR_TABLE_NAME to MajorData
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
+        db_listOfMajNames = new ArrayList<>();
+        if (db_mdataCursor.moveToFirst())
+        {
+            do {
+                new MajorData(db_mdataCursor.getInt(0), db_mdataCursor.getString(1), db_mdataCursor.getInt(2));
+                db_listOfMajNames.add(db_mdataCursor.getString(1));
+//                Log.d("READ MAJOR DATA", db_listOfMajors.toString());
+            } while (db_mdataCursor.moveToNext());
+        }
+        db_mdataCursor.close();
+        MajorData.PassMajorData.setMp_MajorNames(db_listOfMajNames);
+    }
+    public void Db_readPrefixData() // saving data from MAJOR_TABLE_NAME//prefixName to MajorData.MajorNameAndPrefix
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor db_pdataCursor = db.rawQuery("SELECT prefixName FROM " + PREFIXES_TABLE_NAME, null);
+        db_listOfPrefixes = new ArrayList<>();
+        if(db_pdataCursor.moveToFirst())
+        {
+            do{
+                db_listOfPrefixes.add(db_pdataCursor.getString(0));
+            }while(db_pdataCursor.moveToNext());
+            db_pdataCursor.close();
+        }
+        MajorData.PassMajorData.setMp_MajorPrefixes(db_listOfPrefixes);
+    }
+    public ArrayList<StudentData> Db_passStudentData() // might not need // used to both save database to StudentData and return an ArrayList of the data
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
+        db_listOfStudents = new ArrayList<>();
+        if(db_sdataCursor.moveToFirst())
+        {
+            do {
+                db_listOfStudents.add(new StudentData(db_sdataCursor.getString(0),
+                        db_sdataCursor.getString(1),
+                        db_sdataCursor.getString(2),
+                        db_sdataCursor.getString(3),
+                        db_sdataCursor.getInt(4),
+                        db_sdataCursor.getDouble(5)));
+            }while(db_sdataCursor.moveToNext());
+        }
+        db_sdataCursor.close();
+        return db_listOfStudents;
+    }
+    public ArrayList<MajorData> Db_passMajorData() // might not need // used to both save database to MajorData and return an ArrayList of the data
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
+        db_listOfMajors = new ArrayList<>();
+//        db_listOfMajNames = new ArrayList<>();
+        if (db_mdataCursor.moveToFirst())
+        {
+            do {
+                db_listOfMajors.add(new MajorData(db_mdataCursor.getInt(0), db_mdataCursor.getString(1), db_mdataCursor.getInt(2)));
+//                db_listOfMajNames.add(db_mdataCursor.getString(1));
+//                Log.d("READ MAJOR DATA", db_listOfMajors.toString());
+            } while (db_mdataCursor.moveToNext());
+        }
+        db_mdataCursor.close();
+        return db_listOfMajors;
+    }
+
+//    public ArrayList<String> db_passPrefixData() // might not need ??
+//    {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor db_pdataCursor = db.rawQuery("SELECT prefixName FROM " + PREFIXES_TABLE_NAME, null);
+//        db_listOfPrefixes = new ArrayList<>();
+//        if(db_pdataCursor.moveToFirst())
+//        {
+//            do{
+//                db_listOfPrefixes.add(db_pdataCursor.getString(0));
+//            }while(db_pdataCursor.moveToNext());
+//            db_pdataCursor.close();
+//        }
+//        return db_listOfPrefixes;
+//    }
+//    public ArrayList<String> db_passMajNames() // returns an ArrayList<String> of the major names
+//    {
+//        return db_listOfMajNames;
+//    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        db.execSQL("DROP TABLE IF EXISTS " + PREFIXES_TABLE_NAME + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + MAJORS_TABLE_NAME + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + STUDENTS_TABLE_NAME + ";");
+        onCreate(db);
+    }
+    public int RecordCount(String tname)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         int rowCount = (int) DatabaseUtils.queryNumEntries(db, tname);
         db.close();
         return rowCount;
     }
-//    public String getUsername(String un)
+    public String get_dbUsername()
+    {
+        String un = "";
+//        String selectUsername = "SELECT "
+         return un;
+    }
+
+//    public String get_dbFname()
 //    {
-//
+//        return fn;
+//    }
+//    public String get_dbLname()
+//    {
+//        return ln;
+//    }
+//    public String get_dbEmail()
+//    {
+//        return em;
+//    }
+//    public int get_dbAge()
+//    {
+//        return age;
+//    }
+//    public float get_dbMajor()
+//    {
+//        return maj;
 //    }
 }

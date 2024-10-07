@@ -9,12 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity
     Intent main_searchIntent;
     Intent main_addIntent;
     Intent main_detailsIntent;
+    StudentListAdapter main_lv_adapter;
+    ArrayList<StudentData> main_listOfStudents;
+    ArrayList<String> main_listOfMajors;
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Main_ListOfIntents();
         Main_ListOfViews();
+        Main_PopData();
         Main_OnClickListeners();
     }
 
@@ -51,6 +57,15 @@ public class MainActivity extends AppCompatActivity
         iv_jMain_searchBtn = findViewById(R.id.iv_vMain_searchBtn);
         iv_jMain_addBtn = findViewById(R.id.iv_vMain_addBtn);
         iv_jMain_deleteBtn = findViewById(R.id.iv_vMain_deleteBtn);
+    }
+    private void Main_PopData()
+    {
+        dbHelper = new DatabaseHelper(this);
+        dbHelper.Db_PopulateData();
+//        main_listOfMajors = MajorData.PassMajorData.getMp_allMajorNames();
+        main_listOfStudents = StudentData.PassStudentData.getPassedStudentData();
+        main_lv_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
+        lv_jMain_listOfStudents.setAdapter(main_lv_adapter);
     }
 
     private void Main_OnClickListeners()
@@ -83,6 +98,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
+                StudentData.PassStudentData.setLvMainLongClickPos(position);
+                startActivity(main_detailsIntent);
                 return false;
             }
         });

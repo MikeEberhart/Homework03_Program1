@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="operator_list">
+        <item>=</item>
+        <item>&gt;</item>
+        <item>&lt;</item>
+    </array>
+</resources>
