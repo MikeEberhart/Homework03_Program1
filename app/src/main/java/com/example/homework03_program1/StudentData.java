@@ -11,14 +11,14 @@ public class StudentData
     private String sd_email;
     private int sd_age;
     private double sd_gpa;
-    private String sd_major;
+    private int sd_major;
 
     public StudentData()
     {
 
     }
 
-    public StudentData(String un, String fn, String ln, String em, int a, double g)
+    public StudentData(String un, String fn, String ln, String em, int a, double g, int maj)
     {
         sd_username = un;
         sd_fname = fn;
@@ -26,7 +26,7 @@ public class StudentData
         sd_email = em;
         sd_age = a;
         sd_gpa = g;
-//        sd_major = maj;
+        sd_major = maj;
     }
     // Getters //
     public String getSd_username()
@@ -53,7 +53,7 @@ public class StudentData
     {
         return sd_gpa;
     }
-    public String getSd_major() // student major needs to be convert from foreign key to text
+    public int getSd_major() // student major needs to be convert from foreign key to text
     {
         return sd_major;
     }
@@ -82,7 +82,7 @@ public class StudentData
     {
         sd_gpa = g;
     }
-    public void setSd_major(String maj)
+    public void setSd_major(int maj)
     {
         sd_major = maj;
     }

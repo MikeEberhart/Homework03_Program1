@@ -103,7 +103,7 @@ public class DetailsActivity extends AppCompatActivity
         tv_j_vsDetails_age.setText(String.valueOf(sd.getSd_age()));
         tv_j_vsDetails_gpa.setText(String.valueOf(sd.getSd_gpa()));
         // student major needs to be convert from foreign key to text
-//        tv_j_vsDetails_major.setText(sd.getSd_major());
-//        Log.d("MajorName", sd.getSd_major());
+        tv_j_vsDetails_major.setText(MajorData.PassMajorData.getMp_MajorName(da_selectedStudent));
+        Log.d("MajorName", String.valueOf(sd.getSd_major()));
     }
 }

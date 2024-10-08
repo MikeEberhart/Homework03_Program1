@@ -167,7 +167,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
                         db_sdataCursor.getString(2),
                         db_sdataCursor.getString(3),
                         db_sdataCursor.getInt(4),
-                        db_sdataCursor.getDouble(5)));
+                        db_sdataCursor.getDouble(5),
+                        db_sdataCursor.getInt(6)));
                 i++;
             }while(db_sdataCursor.moveToNext());
         }

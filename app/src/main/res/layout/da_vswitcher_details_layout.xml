@@ -5,187 +5,262 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsDetails_lname"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_lnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsDetails_lname"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsDetails_email"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_emailLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsDetails_email"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsDetails_age"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_ageLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsDetails_age"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsDetails_gpa"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_gpaLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsDetails_gpa"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsDetails_majorPrefix"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_majorLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsDetails_majorPrefix"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsDetails_fname"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_fnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsDetails_fname"
+        app:srcCompat="@drawable/corner_arrow" />
+
     <TextView
         android:id="@+id/tv_vsDetails_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="4dp"
         android:text="username"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsDetails_usernameLabel"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_usernameLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_usernameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_usernameLabel" />
 
     <TextView
         android:id="@+id/tv_vsDetails_fnameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:text="First Name:"
         android:textAlignment="textStart"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_usernameLabel" />
-
-    <TextView
-        android:id="@+id/tv_vsDetails_ageLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Age:"
-        android:textAlignment="textStart"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_emailLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_emailLabel" />
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_usernameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_username" />
 
     <TextView
         android:id="@+id/tv_vsDetails_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="4dp"
         android:text="age"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsDetails_ageLabel"
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_ageLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_ageLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_ageLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsDetails_ageLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Age:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_emailLabel"
         app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_email" />
 
     <TextView
         android:id="@+id/tv_vsDetails_gpa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="4dp"
         android:text="gpa"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsDetails_gpaLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_age" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_gpaLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_gpaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_gpaLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsDetails_emailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Email:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_lnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_lname" />
 
     <TextView
         android:id="@+id/tv_vsDetails_gpaLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:text="GPA:"
         android:textAlignment="textStart"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_ageLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_ageLabel" />
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_ageLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_age" />
 
     <TextView
         android:id="@+id/tv_vsDetails_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="4dp"
         android:text="email"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsDetails_emailLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_lname" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_emailLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_emailLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_emailLabel" />
 
     <TextView
         android:id="@+id/tv_vsDetails_lname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="4dp"
         android:text="lname"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsDetails_lnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_fname" />
-
-    <TextView
-        android:id="@+id/tv_vsDetails_majorLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Major:"
-        android:textAlignment="textStart"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_gpaLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_gpaLabel" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_lnameLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_lnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_lnameLabel" />
 
     <TextView
         android:id="@+id/tv_vsDetails_usernameLabel"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="35dp"
         android:text="Username:"
         android:textAlignment="textStart"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_fnameLabel"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_vsDetails_lnameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:text="Last Name:"
         android:textAlignment="textStart"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_fnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_fnameLabel" />
-
-    <TextView
-        android:id="@+id/tv_vsDetails_emailLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Email:"
-        android:textAlignment="textStart"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_lnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_lnameLabel" />
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_fnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_fname" />
 
     <TextView
         android:id="@+id/tv_vsDetails_fname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="4dp"
         android:text="fname"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsDetails_fnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_username" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_fnameLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_fnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_fnameLabel" />
 
     <TextView
         android:id="@+id/tv_vsDetails_major"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="26dp"
         android:text="BUS - Business Administration"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_majorLabel" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_majorLabel"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_majorLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_majorPrefix" />
+
+    <TextView
+        android:id="@+id/tv_vsDetails_majorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Major:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_gpaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_gpa" />
 
     <TextView
         android:id="@+id/tv_vsDetails_majorPrefix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="254dp"
-        android:text="BUS - "
+        android:text="BUS"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_major" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsDetails_major"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_major"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsDetails_majorLabel" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="24dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsDetails_username"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsDetails_usernameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsDetails_username"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/corner_arrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
