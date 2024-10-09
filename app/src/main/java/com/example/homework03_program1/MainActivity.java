@@ -65,8 +65,7 @@ public class MainActivity extends AppCompatActivity
         dbHelper = new DatabaseHelper(this);
         dbHelper.Db_PopulateData();
 
-//        main_listOfMajors = MajorData.PassMajorData.getMp_allMajorNames();
-        main_listOfStudents = StudentData.PassStudentData.getPassedStudentData();
+        main_listOfStudents = dbHelper.Db_passStudentData();
         main_lv_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
         lv_jMain_listOfStudents.setAdapter(main_lv_adapter);
     }

@@ -53,7 +53,6 @@ public class StudentListAdapter extends BaseAdapter
         tv_j_sla_username.setText(sd.getSd_username());
         tv_j_sla_fname.setText(sd.getSd_fname());
         tv_j_sla_lname.setText(sd.getSd_lname());
-
         return view;
     }
 }

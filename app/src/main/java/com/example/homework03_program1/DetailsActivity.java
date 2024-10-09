@@ -12,16 +12,13 @@ import android.widget.ViewSwitcher;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class DetailsActivity extends AppCompatActivity
 {
     // Main Details Activity
     Intent details_mainIntent;
-    ImageView iv_jDetails_backBtn;
-    TextView tv_randomTesting;
+    ImageView iv_jDetails_homeBtn;
+    ImageView iv_jDetails_updateBtn;
     View da_vsSwitcher_details;
     View da_vsSwitcher_update;
     ViewSwitcher vs_jDetails_viewSwitcher;
@@ -32,6 +29,7 @@ public class DetailsActivity extends AppCompatActivity
     TextView tv_j_vsDetails_age;
     TextView tv_j_vsDetails_gpa;
     TextView tv_j_vsDetails_major;
+    TextView tv_j_vsDetails_majorPrefix;
     int da_selectedStudent;
     // Details View Layout
 
@@ -49,11 +47,7 @@ public class DetailsActivity extends AppCompatActivity
         DA_OnClickListener();
         DA_SetTextViewData();
 
-        tv_randomTesting.setText(String.valueOf(da_selectedStudent));
         vs_jDetails_viewSwitcher.setAnimateFirstView(true);
-
-//        tv_jRanran.setText(String.valueOf(da_selectedStudent));
-
     }
     private void DA_ListOfIntents()
     {
@@ -63,8 +57,8 @@ public class DetailsActivity extends AppCompatActivity
     {
         // Main Views //
         vs_jDetails_viewSwitcher = findViewById(R.id.vs_vDetails_viewSwitcher);
-        iv_jDetails_backBtn = findViewById(R.id.iv_vDetails_backBtn);
-        tv_randomTesting = findViewById(R.id.tv_randomContent);
+        iv_jDetails_homeBtn = findViewById(R.id.iv_vDetails_homeBtn);
+        iv_jDetails_updateBtn = findViewById(R.id.iv_vDetails_updateBtn);
         LayoutInflater da_inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         da_vsSwitcher_details = da_inflater.inflate(R.layout.da_vswitcher_details_layout, null);
         da_vsSwitcher_update = da_inflater.inflate(R.layout.da_vswitcher_update_layout, null);
@@ -78,12 +72,13 @@ public class DetailsActivity extends AppCompatActivity
         tv_j_vsDetails_age = findViewById(R.id.tv_vsDetails_age);
         tv_j_vsDetails_gpa = findViewById(R.id.tv_vsDetails_gpa);
         tv_j_vsDetails_major = findViewById(R.id.tv_vsDetails_major);
+        tv_j_vsDetails_majorPrefix = findViewById(R.id.tv_vsDetails_majorPrefix);
         // Update View //
 
     }
     private void DA_OnClickListener()
     {
-        iv_jDetails_backBtn.setOnClickListener(new View.OnClickListener()
+        iv_jDetails_homeBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -91,19 +86,32 @@ public class DetailsActivity extends AppCompatActivity
                 startActivity(details_mainIntent);
             }
         });
+        iv_jDetails_updateBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(vs_jDetails_viewSwitcher.getCurrentView() != da_vsSwitcher_update)
+                {
+                    vs_jDetails_viewSwitcher.showNext();
+                }
+            }
+        });
     }
     private void DA_SetTextViewData()
     {
-        da_selectedStudent = StudentData.PassStudentData.getLvMainLongClickPos();
         StudentData sd = StudentData.PassStudentData.getStudentData();
+        MajorData md = MajorData.PassMajorData.getMajorData(sd.getSd_major());
         tv_j_vsDetails_username.setText(sd.getSd_username());
         tv_j_vsDetails_fname.setText(sd.getSd_fname());
         tv_j_vsDetails_lname.setText(sd.getSd_lname());
         tv_j_vsDetails_email.setText(sd.getSd_email());
         tv_j_vsDetails_age.setText(String.valueOf(sd.getSd_age()));
         tv_j_vsDetails_gpa.setText(String.valueOf(sd.getSd_gpa()));
-        // student major needs to be convert from foreign key to text
-        tv_j_vsDetails_major.setText(MajorData.PassMajorData.getMp_MajorName(da_selectedStudent));
         Log.d("MajorName", String.valueOf(sd.getSd_major()));
+        Log.d("MajorName333", md.getMajorName());
+        tv_j_vsDetails_major.setText(md.getMajorName());
+        tv_j_vsDetails_majorPrefix.setText(MajorData.PassMajorData.getMp_PrefixName(md.getPrefixId()));
+
     }
 }

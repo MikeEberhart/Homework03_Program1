@@ -95,14 +95,17 @@ public class StudentData
         {
             studentPos = pos;
         }
-        public static void setPassedStudentData(ArrayList<StudentData> sd)
-        {
-            passedStudentData = sd;
-        }
         public static int getLvMainLongClickPos()
         {
             return studentPos;
         }
+
+
+        public static void setPassedStudentData(ArrayList<StudentData> sd)
+        {
+            passedStudentData = sd;
+        }
+
         public static ArrayList<StudentData> getPassedStudentData()
         {
             return passedStudentData;
