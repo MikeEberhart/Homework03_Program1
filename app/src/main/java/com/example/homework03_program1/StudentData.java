@@ -58,10 +58,10 @@ public class StudentData
         return sd_major;
     }
     // Setters //
-//    public void setSd_username(String un) // not sure if ill need this since usernames cannot be changed once set
-//    {
-//        sd_username = un;
-//    }
+    public void setSd_username(String un)
+    {
+        sd_username = un;
+    }
     public void setSd_fname(String fn)
     {
         sd_fname = fn;

@@ -10,17 +10,62 @@
         android:id="@+id/imageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/editTextText"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsUpdate_lname"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_lnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsUpdate_lname"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_vsUpdate_major"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_majorLabel"
+        app:layout_constraintTop_toTopOf="@+id/sp_vsUpdate_major"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsUpdate_gpa"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_gpaLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsUpdate_gpa"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsUpdate_age"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_ageLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsUpdate_age"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsUpdate_email"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_emailLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsUpdate_email"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsUpdate_fname"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_fnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsUpdate_fname"
         app:srcCompat="@drawable/corner_arrow" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_vsUpdate_usernameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
         android:text="Username:"
         android:textAlignment="textStart"
         android:textSize="20sp"
@@ -32,13 +77,13 @@
         android:id="@+id/imageView"
         android:layout_width="24dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_username"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_usernameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsUpdate_username"
         app:srcCompat="@drawable/corner_arrow" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_vsUpdate_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
@@ -46,35 +91,178 @@
         android:text="Username"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsUpdate_usernameLabel"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_usernameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_usernameLabel" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_vsUpdate_fnameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:text="First Name:"
         android:textAlignment="textStart"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_usernameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_username" />
 
     <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="wrap_content"
+        android:id="@+id/et_vsUpdate_fname"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_fnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_fnameLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_lnameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Last Name:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_fnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsUpdate_fname" />
+
+    <EditText
+        android:id="@+id/et_vsUpdate_lname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_lnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_lnameLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_emailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Email:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_lnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsUpdate_lname" />
+
+    <EditText
+        android:id="@+id/et_vsUpdate_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_emailLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_emailLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_ageLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Age:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_emailLabel"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsUpdate_email" />
+
+    <EditText
+        android:id="@+id/et_vsUpdate_age"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Name"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_ageLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_ageLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_gpaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="GPA:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_ageLabel"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsUpdate_age" />
+
+    <EditText
+        android:id="@+id/et_vsUpdate_gpa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:inputType="number|numberDecimal"
+        android:text="Name"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_gpaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_gpaLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_majorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Major:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_gpaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsUpdate_gpa" />
+
+    <Spinner
+        android:id="@+id/sp_vsUpdate_major"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsUpdate_gpa"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_majorLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_majorLabel" />
+
+    <ImageView
+        android:id="@+id/iv_vsUpdate_backBtn"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_rounded_edges"
+        android:backgroundTint="@color/lions_blue"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/back_btn_blk" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -70,9 +70,7 @@ public class SearchActivity extends AppCompatActivity
         vs_jSearch_viewSwitcher.addView(sa_vsSwitcher_search);
         vs_jSearch_viewSwitcher.addView(sa_vsSwitcher_results);
         // Search View Layout //
-
-
-        sa_listOfMajNames = MajorData.PassMajorData.getMp_allMajorNames();
+        sa_listOfMajNames = MajorData.PassMajorData.getMp_allMajorNames(); // maybe make a query for this instead
         sa_spMajAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, sa_listOfMajNames);
         et_j_vsSearch_username = findViewById(R.id.et_vsSearch_username);
         et_j_vsSearch_fname = findViewById(R.id.et_vsSearch_fname);

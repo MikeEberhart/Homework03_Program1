@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
         Main_ListOfViews();
         Main_PopData();
         Main_OnClickListeners();
+
     }
 
     private void Main_ListOfIntents()
@@ -63,9 +64,9 @@ public class MainActivity extends AppCompatActivity
     {
         Log.d("Main", "Main");
         dbHelper = new DatabaseHelper(this);
-        dbHelper.Db_PopulateData();
+        dbHelper.DB_PopulateData();
 
-        main_listOfStudents = dbHelper.Db_passStudentData();
+        main_listOfStudents = dbHelper.DB_passStudentData(); // gets an arraylist<StudentData> from db
         main_lv_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
         lv_jMain_listOfStudents.setAdapter(main_lv_adapter);
     }
@@ -100,6 +101,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
+//                dbHelper.getDataFromRow(position); // here for testing remove later
+                StudentData test = dbHelper.DB_getSingleStudentData(position); // testing
+                Log.d("Long Click Area", test.getSd_fname()); // testing
                 StudentData.PassStudentData.setLvMainLongClickPos(position);
                 startActivity(main_detailsIntent);
                 return false;
