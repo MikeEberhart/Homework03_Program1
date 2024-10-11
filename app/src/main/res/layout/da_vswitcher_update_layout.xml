@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F9F2FA">
 
 
     <ImageView
@@ -86,7 +87,7 @@
         android:id="@+id/tv_vsUpdate_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="4dp"
         android:text="Username"
         android:textAlignment="textStart"
@@ -112,7 +113,7 @@
         android:id="@+id/et_vsUpdate_fname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
@@ -139,7 +140,7 @@
         android:id="@+id/et_vsUpdate_lname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
@@ -166,7 +167,7 @@
         android:id="@+id/et_vsUpdate_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
@@ -193,7 +194,7 @@
         android:id="@+id/et_vsUpdate_age"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="number"
@@ -220,7 +221,7 @@
         android:id="@+id/et_vsUpdate_gpa"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="number|numberDecimal"
@@ -247,7 +248,8 @@
         android:id="@+id/sp_vsUpdate_major"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/et_vsUpdate_gpa"
         app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_majorLabel"
         app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_majorLabel" />
@@ -256,13 +258,60 @@
         android:id="@+id/iv_vsUpdate_backBtn"
         android:layout_width="50dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/btn_rounded_edges"
         android:backgroundTint="@color/lions_blue"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/back_btn_blk" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Username cannot be changed"
+        android:textColor="@color/design_default_color_error"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_usernameLabel"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsUpdate_usernameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsUpdate_usernameLabel"
+        app:layout_constraintVertical_bias="0.69" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_addNewMajorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+ Add New Major"
+        android:textAlignment="center"
+        android:textColor="@color/lions_blue"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_majorLabel"
+        app:layout_constraintEnd_toEndOf="@+id/sp_vsUpdate_major"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/sp_vsUpdate_major" />
+
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsUpdate_addNewMajorBtn"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsUpdate_addNewMajorBtn"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsUpdate_addNewMajorBtn"
+        app:srcCompat="@drawable/blk_line_label" />
+
+    <ImageView
+        android:id="@+id/iv_vsUpdate_saveChangesBtn"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/btn_rounded_edges"
+        android:backgroundTint="@color/lions_blue"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/save_icon_blk" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

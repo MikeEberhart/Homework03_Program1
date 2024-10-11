@@ -19,34 +19,33 @@ public class MajorData
         md_majorPrefix = prefix;
     }
     // Getters //
-    public int getMajorId()
+    public int getMd_majorId()
     {
         return md_majorId;
     }
-    public int getPrefixId()
-    {
-        return md_majorPrefix;
-    }
-    public String getMajorName()
+    public String getMd_majorName()
     {
         return md_majorName;
     }
+    public int getMd_majorPrefixId()
+    {
+        return md_majorPrefix;
+    }
     // Setters //
-//    Is this even needed since major id is set in the database
-//    Maybe use it to change the order of the database? would need to store in temp
-//    Database then overwrite the old one. Or is there something in the sqlite I could use?
-//    public void setMajorId(int id)
-//    {
-//        md_majorId = id;
-//    }
-//    public void setMajorName(String name)
-//    {
-//        md_majorName = name;
-//    }
-//    public void setMd_majorPrefix(int prefix)
-//    {
-//        md_majorPrefix = prefix;
-//    }
+    public void setMd_majorId(int id)
+    {
+        md_majorId = id;
+    }
+    public void setMd_majorName(String name)
+    {
+        md_majorName = name;
+    }
+    public void setMd_majorPrefixId(int prefix)
+    {
+        md_majorPrefix = prefix;
+    }
+
+    // static class for MajorData //
     static class PassMajorData
     {
         static ArrayList<MajorData> passedMajorData;

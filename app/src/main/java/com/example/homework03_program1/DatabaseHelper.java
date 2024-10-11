@@ -1,5 +1,6 @@
 package com.example.homework03_program1;
 
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -19,7 +20,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
     ArrayList<MajorData> db_listOfMajors;
     ArrayList<String> db_listOfMajNames;
     ArrayList<String> db_listOfPrefixes;
-
     String majPrefix;
     String test;
 
@@ -220,7 +220,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 //        }
 //        MajorData.PassMajorData.setMp_MajorPrefixes(db_listOfPrefixes);
 //    }
-    public ArrayList<StudentData> DB_passStudentData() // used to both save database to StudentData and return an ArrayList of the data
+    public ArrayList<StudentData> DB_getListOfStudentData() // used to both save database to StudentData and return an ArrayList of the data
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
@@ -243,30 +243,38 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db_sdataCursor.close();
         return db_listOfStudents;
     }
-//    public StudentData DB_passingStudentDataa(int i)
-//    {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
-//    }
-    public ArrayList<MajorData> DB_passMajorData() // might not need // used to both save database to MajorData and return an ArrayList of the data
+    public ArrayList<MajorData> DB_getListOfMajorData() // might not need // used to both save database to MajorData and return an ArrayList of the data
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
         db_listOfMajors = new ArrayList<>();
-//        db_listOfMajNames = new ArrayList<>();
         if (db_mdataCursor != null)
         {
             db_mdataCursor.moveToFirst();
             do {
                 db_listOfMajors.add(new MajorData(db_mdataCursor.getInt(0), db_mdataCursor.getString(1), db_mdataCursor.getInt(2)));
-//                db_listOfMajNames.add(db_mdataCursor.getString(1));
-//                Log.d("READ MAJOR DATA", db_listOfMajors.toString());
             } while (db_mdataCursor.moveToNext());
+            db_mdataCursor.close();
         }
-        db_mdataCursor.close();
         return db_listOfMajors;
     }
-    public ArrayList<String> DB_passPrefixData() // used for spinners
+    public ArrayList<String> DB_getListOfMajorNames() // only being used to populate spinner data so far
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
+        db_listOfMajNames = new ArrayList<>();
+        db_listOfMajNames.add("-Select a Major-"); // setting pos 0 to -Select Major- to act as a null selection and display mainly for AddNewStudent spinner
+        if(db_mdataCursor != null)
+        {
+            db_mdataCursor.moveToFirst();
+            do {
+                db_listOfMajNames.add(db_mdataCursor.getString(1));
+            }while (db_mdataCursor.moveToNext());
+            db_mdataCursor.close();
+        }
+        return db_listOfMajNames;
+    }
+    public ArrayList<String> DB_getListOfPrefixes() // used for spinners
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_pdataCursor = db.rawQuery("SELECT * FROM " + PREFIXES_TABLE_NAME, null);
@@ -281,38 +289,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db_pdataCursor.close();
         return db_listOfPrefixes;
     }
-    public String DB_getMajorPrefix(int pos)
+
+    public int RecordCount(String tableName)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectPrefix = "SELECT " + PREFIXES_TABLE_NAME + ".prefixName FROM " + PREFIXES_TABLE_NAME + " INNER JOIN " + MAJORS_TABLE_NAME + " ON " + PREFIXES_TABLE_NAME + ".prefixId=" + MAJORS_TABLE_NAME + ".prefixId WHERE " + MAJORS_TABLE_NAME + ".majorId=" + pos + ";";
-//        String selectPrefix = "SELECT prefixName FROM " + PREFIXES_TABLE_NAME + " WHERE prefixId = '" + pos + "';";
-        Cursor db_pdataCursor = db.rawQuery(selectPrefix, null);
-        if(db_pdataCursor != null)
-        {
-            db_pdataCursor.moveToFirst();
-            majPrefix = db_pdataCursor.getString(0);
-            db_pdataCursor.close();
-        }
-        return majPrefix;
-    }
-    public int RecordCount(String tname)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        int rowCount = (int) DatabaseUtils.queryNumEntries(db, tname);
+        int rowCount = (int) DatabaseUtils.queryNumEntries(db, tableName);
         db.close();
         return rowCount;
-    }
-    public String get_dbUsername()
-    {
-        String un = "";
-//        String selectUsername = "SELECT "
-         return un;
     }
     public StudentData DB_getSingleStudentData(int i)
     {
         StudentData temp_student = new StudentData();
         SQLiteDatabase db = this.getReadableDatabase();
-        String getRowData = "SELECT * From " + STUDENTS_TABLE_NAME + " LIMIT 1 OFFSET " + i + ";";
+        String getRowData = "SELECT * FROM " + STUDENTS_TABLE_NAME + " LIMIT 1 OFFSET " + i + ";";
         Cursor db_rowData = db.rawQuery(getRowData, null);
         if(db_rowData != null)
         {
@@ -329,7 +318,49 @@ public class DatabaseHelper extends SQLiteOpenHelper
         Log.d("getting row data", temp_student.toString());
         return temp_student;
     }
+    public MajorData DB_getSingleMajorData(int i)
+    {
+        MajorData temp_major = new MajorData();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String getRowData = "SELECT * FROM " + MAJORS_TABLE_NAME + " LIMIT 1 OFFSET " + i + ";";
+        Cursor db_rowData = db.rawQuery(getRowData, null);
+        if(db_rowData != null)
+        {
+            db_rowData.moveToFirst();
+            temp_major.setMd_majorId(db_rowData.getInt(0));
+            temp_major.setMd_majorName(db_rowData.getString(1));
+            temp_major.setMd_majorPrefixId(db_rowData.getInt(2));
+            db_rowData.close();
+        }
+        return temp_major;
+    }
+    public void DB_addNewStudentToDatabase(String username, String fname, String lname, String email, int age, double gpa, int major)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES (username, fname, lname, email, age, gpa, major);");
+    }
+    public void DB_deleteStudentFromDatabase(String student)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + STUDENTS_TABLE_NAME + " WHERE username='" + student + "';");
+    }
 
+
+
+    public String DB_getMajorPrefix(int pos) // dont think i need this might delete later //
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectPrefix = "SELECT " + PREFIXES_TABLE_NAME + ".prefixName FROM " + PREFIXES_TABLE_NAME + " INNER JOIN " + MAJORS_TABLE_NAME + " ON " + PREFIXES_TABLE_NAME + ".prefixId=" + MAJORS_TABLE_NAME + ".prefixId WHERE " + MAJORS_TABLE_NAME + ".majorId=" + pos + ";";
+//        String selectPrefix = "SELECT prefixName FROM " + PREFIXES_TABLE_NAME + " WHERE prefixId = '" + pos + "';";
+        Cursor db_pdataCursor = db.rawQuery(selectPrefix, null);
+        if(db_pdataCursor != null)
+        {
+            db_pdataCursor.moveToFirst();
+            majPrefix = db_pdataCursor.getString(0);
+            db_pdataCursor.close();
+        }
+        return majPrefix;
+    }
 
 //    public String getDataFromRow(int i)
 //    {

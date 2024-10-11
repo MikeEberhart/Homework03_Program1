@@ -12,6 +12,7 @@ public class StudentData
     private int sd_age;
     private double sd_gpa;
     private int sd_major;
+    private boolean selectedStudent;
 
     public StudentData()
     {
@@ -57,6 +58,7 @@ public class StudentData
     {
         return sd_major;
     }
+
     // Setters //
     public void setSd_username(String un)
     {
@@ -87,6 +89,15 @@ public class StudentData
         sd_major = maj;
     }
 
+    public void setSelectedStudent(boolean b)
+    {
+        selectedStudent = b;
+    }
+    public boolean getSelectedStudent()
+    {
+        return selectedStudent;
+    }
+
     static class PassStudentData
     {
         static int studentPos;
@@ -114,6 +125,8 @@ public class StudentData
         {
             return passedStudentData.get(studentPos);
         }
+
+
 
     }
 }

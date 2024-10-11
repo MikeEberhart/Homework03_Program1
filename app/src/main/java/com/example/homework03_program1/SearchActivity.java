@@ -2,6 +2,7 @@ package com.example.homework03_program1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class SearchActivity extends AppCompatActivity
     View sa_vsSwitcher_search;
     View sa_vsSwitcher_results;
     ViewSwitcher vs_jSearch_viewSwitcher;
+    DatabaseHelper sa_dbHelper;
     // Search View Layout //
     EditText et_j_vsSearch_username;
     EditText et_j_vsSearch_fname;
@@ -56,6 +58,7 @@ public class SearchActivity extends AppCompatActivity
     {
         sa_mainIntent = new Intent(this, MainActivity.class);
         sa_detailsIntent = new Intent(this, DetailsActivity.class);
+        sa_dbHelper = new DatabaseHelper(this);
     }
     private void SA_ListOfViews()
     {
@@ -70,7 +73,7 @@ public class SearchActivity extends AppCompatActivity
         vs_jSearch_viewSwitcher.addView(sa_vsSwitcher_search);
         vs_jSearch_viewSwitcher.addView(sa_vsSwitcher_results);
         // Search View Layout //
-        sa_listOfMajNames = MajorData.PassMajorData.getMp_allMajorNames(); // maybe make a query for this instead
+        sa_listOfMajNames = sa_dbHelper.DB_getListOfMajorNames();
         sa_spMajAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, sa_listOfMajNames);
         et_j_vsSearch_username = findViewById(R.id.et_vsSearch_username);
         et_j_vsSearch_fname = findViewById(R.id.et_vsSearch_fname);

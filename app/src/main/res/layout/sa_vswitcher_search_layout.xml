@@ -37,12 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="23dp"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="text"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsSearch_username"
         app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_fnameLabel"
         app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_username" />
 
@@ -80,11 +79,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="23dp"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsSearch_fname"
         app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_lnameLabel"
         app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_fname" />
 
@@ -108,8 +106,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/sp_vsSearch_gpaRange"
         app:layout_constraintEnd_toEndOf="@+id/sp_vsSearch_gpaRange"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_gpaLabel" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/sp_vsSearch_gpaRange" />
 
     <TextView
         android:id="@+id/tv_vsSearch_gpaLabel"
@@ -141,13 +139,12 @@
         android:id="@+id/et_vsSearch_gpa"
         android:layout_width="0dp"
         android:layout_height="43dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsSearch_lname"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/sp_vsSearch_gpaRange"
-        app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_lname" />
+        app:layout_constraintTop_toTopOf="@+id/sp_vsSearch_gpaRange" />
 
     <Spinner
         android:id="@+id/sp_vsSearch_majorList"
@@ -166,14 +163,24 @@
         android:id="@+id/tv_vsSearch_addNewMajor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="2dp"
         android:text="+ Add New Major"
         android:textAlignment="center"
+        android:textColor="@color/lions_blue"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/sp_vsSearch_majorList"
         app:layout_constraintEnd_toEndOf="@+id/sp_vsSearch_majorList"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_majorLabel" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_vsSearch_addNewMajor"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_addNewMajor"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_addNewMajor"
+        app:srcCompat="@drawable/blk_line_label" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

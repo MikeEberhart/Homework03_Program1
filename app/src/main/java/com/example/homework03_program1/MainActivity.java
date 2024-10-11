@@ -6,6 +6,7 @@
 package com.example.homework03_program1;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     ArrayList<StudentData> main_listOfStudents;
     ArrayList<String> main_listOfMajors;
     DatabaseHelper dbHelper;
+    private int selectedStudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private void Main_ListOfIntents()
     {
         main_searchIntent = new Intent(this, SearchActivity.class);
-        main_addIntent = new Intent(this, AddActivity.class);
+        main_addIntent = new Intent(this, AddNewDataActivity.class);
         main_detailsIntent = new Intent(this, DetailsActivity.class);
 
     }
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         dbHelper = new DatabaseHelper(this);
         dbHelper.DB_PopulateData();
 
-        main_listOfStudents = dbHelper.DB_passStudentData(); // gets an arraylist<StudentData> from db
+        main_listOfStudents = dbHelper.DB_getListOfStudentData(); // gets an arraylist<StudentData> from db to be used to populate the listView data
         main_lv_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
         lv_jMain_listOfStudents.setAdapter(main_lv_adapter);
     }
@@ -94,7 +97,24 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                if(selectedStudent != -1)
+                {
+                    dbHelper.DB_deleteStudentFromDatabase(main_listOfStudents.get(selectedStudent).getSd_username());
+                    selectedStudent = -1;
+                }
+                else
+                {
+                    // need error text maybe to let user know to select a student //
+                }
+            }
+        });
+        lv_jMain_listOfStudents.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                // look for something to edit the background color so it changes with whoever is selected
+                selectedStudent = position;
             }
         });
         lv_jMain_listOfStudents.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -109,6 +129,7 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
+
 //        same as above but using a lambda function
 //        iv_jMain_searchBtn.setOnClickListener(v ->
 //        {

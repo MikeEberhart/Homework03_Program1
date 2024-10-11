@@ -16,40 +16,35 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/listview_rounded_edges"
-        app:layout_constraintBottom_toTopOf="@+id/iv_vSearch_searchBtn"
+        app:layout_constraintBottom_toTopOf="@+id/iv_vSearch_homeBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vSearch_headerText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_vSearch_headerText" />
 
     <ImageView
         android:id="@+id/iv_vSearch_searchBtn"
         android:layout_width="90dp"
         android:layout_height="65dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/btn_rounded_edges"
         android:backgroundTint="@color/lions_blue"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_vSearch_homeBtn"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_vSearch_homeBtn"
+        app:layout_constraintEnd_toEndOf="@+id/vs_vSearch_viewSwitcher"
         app:srcCompat="@drawable/search_ic_blk" />
 
     <ImageView
         android:id="@+id/iv_vSearch_homeBtn"
         android:layout_width="90dp"
         android:layout_height="65dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/btn_rounded_edges"
         android:backgroundTint="@color/lions_blue"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/iv_vSearch_searchBtn"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vs_vSearch_viewSwitcher"
         app:srcCompat="@drawable/home_btn_blk" />
 
     <TextView
