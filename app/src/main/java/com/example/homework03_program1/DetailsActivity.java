@@ -3,9 +3,12 @@ package com.example.homework03_program1;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,11 +18,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DetailsActivity extends AppCompatActivity
 {
     // Main Details Activity
     Intent da_mainIntent;
+    Intent da_addNewDataIntent;
     ImageView iv_jDetails_homeBtn;
     ImageView iv_jDetails_updateBtn;
     TextView tv_jDetails_headerText;
@@ -44,13 +50,25 @@ public class DetailsActivity extends AppCompatActivity
     ArrayAdapter<String> da_spMajAdapter;
     ImageView iv_j_vsUpdate_backBtn;
     TextView tv_j_vsUpdate_username;
-    TextView tv_j_vsUpdate_fname;
-    TextView tv_j_vsUpdate_lname;
-    TextView tv_j_vsUpdate_email;
-    TextView tv_j_vsUpdate_age;
-    TextView tv_j_vsUpdate_gpa;
     TextView tv_j_vsUpdate_addNewMajorBtn;
+    EditText et_j_vsUpdate_fname;
+    EditText et_j_vsUpdate_lname;
+    EditText et_j_vsUpdate_email;
+    EditText et_j_vsUpdate_age;
+    EditText et_j_vsUpdate_gpa;
     Spinner sp_j_vsUpdate_major;
+    private static final String ALLOWED_USERNAME_CHARS = "^[a-zA-Z0-9_.-]+$"; // regex string allowing only upper and lower case along with number and a few symbols
+    private static final String ALLOWED_NAME_CHARS = "^[a-zA-Z]+$"; // regex string allowing only upper and lower case
+    private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z](?:[a-zA-Z0-9_.-]*[a-zA-Z0-9])?+@[a-zA-Z]+\\.edu$"; // regex string formatted so the last char in the email name can't be a special char and the school email can only contain letters and '.' and the last part must have .edu
+    private static final String ALLOWED_AGE_CHARS =  "^(1[6789]|[2-9][0-9])$"; // regex string formatted making sure the minimal age is 16 with no maximal
+    private static final String ALLOWED_GPA_CHARS = "^(1(\\.\\d+)|2(\\.\\d+)|3(\\.\\d+)|4(\\.0))$"; // regex string formatted so gpa range is 1.0 to 4.0
+    private boolean ad_goodUsername;
+    private boolean ad_goodFname;
+    private boolean ad_goodLname;
+    private boolean ad_goodEmail;
+    private boolean ad_goodAge;
+    private boolean ad_goodGpa;
+    private boolean ad_majorSelected;
 
 
 
@@ -64,6 +82,7 @@ public class DetailsActivity extends AppCompatActivity
         DA_ListOfViews();
         DA_SetTextViewsData();
         DA_OnClickListener();
+        DA_TextChangedEventListener();
 
         vs_jDetails_viewSwitcher.setAnimateFirstView(true);
     }
@@ -71,6 +90,7 @@ public class DetailsActivity extends AppCompatActivity
     {
 
         da_mainIntent = new Intent(DetailsActivity.this, MainActivity.class);
+        da_addNewDataIntent = new Intent(DetailsActivity.this, AddNewDataActivity.class);
         // inflating the different views to be used with the ViewSwitcher //
         LayoutInflater da_inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         da_vsSwitcher_details = da_inflater.inflate(R.layout.da_vswitcher_details_layout, null);
@@ -105,11 +125,11 @@ public class DetailsActivity extends AppCompatActivity
         // Update View //
         iv_j_vsUpdate_backBtn = findViewById(R.id.iv_vsUpdate_backBtn);
         tv_j_vsUpdate_username = findViewById(R.id.tv_vsUpdate_username);
-        tv_j_vsUpdate_fname = findViewById(R.id.et_vsUpdate_fname);
-        tv_j_vsUpdate_lname = findViewById(R.id.et_vsUpdate_lname);
-        tv_j_vsUpdate_email = findViewById(R.id.et_vsUpdate_email);
-        tv_j_vsUpdate_age = findViewById(R.id.et_vsUpdate_age);
-        tv_j_vsUpdate_gpa = findViewById(R.id.et_vsUpdate_gpa);
+        et_j_vsUpdate_fname = findViewById(R.id.et_vsUpdate_fname);
+        et_j_vsUpdate_lname = findViewById(R.id.et_vsUpdate_lname);
+        et_j_vsUpdate_email = findViewById(R.id.et_vsUpdate_email);
+        et_j_vsUpdate_age = findViewById(R.id.et_vsUpdate_age);
+        et_j_vsUpdate_gpa = findViewById(R.id.et_vsUpdate_gpa);
         tv_j_vsUpdate_addNewMajorBtn = findViewById(R.id.tv_vsUpdate_addNewMajorBtn);
         sp_j_vsUpdate_major = findViewById(R.id.sp_vsUpdate_major);
     }
@@ -140,11 +160,11 @@ public class DetailsActivity extends AppCompatActivity
 
         // Setting the TextView data for the Update View //
         tv_j_vsUpdate_username.setText(da_passedStudentData.getSd_username());
-        tv_j_vsUpdate_fname.setText(da_passedStudentData.getSd_fname());
-        tv_j_vsUpdate_lname.setText(da_passedStudentData.getSd_lname());
-        tv_j_vsUpdate_email.setText(da_passedStudentData.getSd_email());
-        tv_j_vsUpdate_age.setText(String.valueOf(da_passedStudentData.getSd_age()));
-        tv_j_vsUpdate_gpa.setText(String.valueOf(da_passedStudentData.getSd_gpa()));
+        et_j_vsUpdate_fname.setText(da_passedStudentData.getSd_fname());
+        et_j_vsUpdate_lname.setText(da_passedStudentData.getSd_lname());
+        et_j_vsUpdate_email.setText(da_passedStudentData.getSd_email());
+        et_j_vsUpdate_age.setText(String.valueOf(da_passedStudentData.getSd_age()));
+        et_j_vsUpdate_gpa.setText(String.valueOf(da_passedStudentData.getSd_gpa()));
         sp_j_vsUpdate_major.setAdapter(da_spMajAdapter);
         sp_j_vsUpdate_major.setSelection(da_passedStudentData.getSd_major() + 1);
     }
@@ -184,6 +204,126 @@ public class DetailsActivity extends AppCompatActivity
                     tv_jDetails_headerText.setText("Student Details");
                     vs_jDetails_viewSwitcher.showPrevious();
                 }
+            }
+        });
+        tv_j_vsUpdate_addNewMajorBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                MajorData.PassMajorData.setMP_AddNewMajorSelected(true);
+                startActivity(da_addNewDataIntent);
+            }
+        });
+    }
+    private boolean DA_BadUserInput(String s, CharSequence cs)
+    {
+        // was error checking with this for loop but read up on regex for java. pretty similar to how it's used in python as well.
+        Pattern goodChars = Pattern.compile(s);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean dataCheck = checkingChars.find();
+        if(dataCheck)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    private void DA_TextChangedEventListener()
+    {
+        et_j_vsUpdate_fname.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                if(DA_BadUserInput(ALLOWED_NAME_CHARS,s))
+                {
+                    // need to add error text
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+        et_j_vsUpdate_lname.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+        et_j_vsUpdate_email.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+        et_j_vsUpdate_age.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+        et_j_vsUpdate_gpa.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
             }
         });
     }

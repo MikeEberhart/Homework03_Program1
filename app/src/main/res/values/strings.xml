@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Homework03_Program1</string>
+    <string name="error_empty_textboxes">MUST FILL OUT ALL FIELDS</string>
 </resources>

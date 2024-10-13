@@ -48,9 +48,21 @@ public class MajorData
     // static class for MajorData //
     static class PassMajorData
     {
+        private static boolean addNewMajorSelected;
         static ArrayList<MajorData> passedMajorData;
         static ArrayList<String> mp_majorPrefixes;
         static ArrayList<String> mp_majorNames;
+
+        public static void setMP_AddNewMajorSelected(boolean selected)
+        {
+            addNewMajorSelected = selected;
+        }
+        public static boolean getMP_AddNewMajorSelected()
+        {
+            return addNewMajorSelected;
+        }
+
+
         public static void setMp_MajorPrefixes(ArrayList<String> mp)
         {
             mp_majorPrefixes = mp;

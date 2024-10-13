@@ -12,14 +12,13 @@ public class StudentData
     private int sd_age;
     private double sd_gpa;
     private int sd_major;
-    private boolean selectedStudent;
 
     public StudentData()
     {
 
     }
 
-    public StudentData(String un, String fn, String ln, String em, int a, double g, int maj)
+    public StudentData(String un, String fn, String ln, String em, int a, double g, int maj) //, boolean sel)
     {
         sd_username = un;
         sd_fname = fn;
@@ -54,7 +53,7 @@ public class StudentData
     {
         return sd_gpa;
     }
-    public int getSd_major() // student major needs to be convert from foreign key to text
+    public int getSd_major()
     {
         return sd_major;
     }
@@ -89,14 +88,6 @@ public class StudentData
         sd_major = maj;
     }
 
-    public void setSelectedStudent(boolean b)
-    {
-        selectedStudent = b;
-    }
-    public boolean getSelectedStudent()
-    {
-        return selectedStudent;
-    }
 
     static class PassStudentData
     {

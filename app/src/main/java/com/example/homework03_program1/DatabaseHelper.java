@@ -1,6 +1,7 @@
 package com.example.homework03_program1;
 
 import android.bluetooth.BluetoothClass;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -334,10 +335,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         return temp_major;
     }
-    public void DB_addNewStudentToDatabase(String username, String fname, String lname, String email, int age, double gpa, int major)
+    public void DB_addNewStudentToDatabase(String uname, String fname, String lname, String email, int age, double gpa, int major)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES (username, fname, lname, email, age, gpa, major);");
+        ContentValues addStudent = new ContentValues();
+//        db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('" + uname + "', '" + fname + "', '" + lname + "', '" + email + "', " + age + ", " + gpa + ", " + major + ");");
+        addStudent.put("username", uname);
+        addStudent.put("fname", fname);
+        addStudent.put("lname", lname);
+        addStudent.put("email", email);
+        addStudent.put("age", age);
+        addStudent.put("gpa", gpa);
+        addStudent.put("majorId", major);
+        db.insert(STUDENTS_TABLE_NAME, null, addStudent);
+        db.close();
     }
     public void DB_deleteStudentFromDatabase(String student)
     {

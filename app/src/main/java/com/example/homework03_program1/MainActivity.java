@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
         Main_ListOfViews();
         Main_PopData();
         Main_OnClickListeners();
+//        this.getCurrentFocus();
 
     }
 
@@ -108,14 +109,31 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+//        lv_jMain_listOfStudents.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+//        {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+//            {
+//                view.setBackgroundColor(Color.rgb(115, 175, 220));
+//                Log.d("onFocus If True", "OnFocus If True");
+//                selectedStudent = position;
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent)
+//            {
+//                parent.getChildAt(selectedStudent).setBackgroundColor(Color.rgb(255, 251, 254));
+//                Log.d("onFocus If False", "OnFocus If False");
+//                selectedStudent = -1;
+//            }
+//        });
         lv_jMain_listOfStudents.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                // look for something to edit the background color so it changes with whoever is selected
                 selectedStudent = position;
             }
+            //look for something to edit the background color so it changes with whoever is selected
         });
         lv_jMain_listOfStudents.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

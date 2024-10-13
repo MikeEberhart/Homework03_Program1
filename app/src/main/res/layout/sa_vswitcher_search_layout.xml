@@ -5,52 +5,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_vsSearch_fnameLabel"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_vsSearch_gpaRange"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_gpaLabel"
+        app:layout_constraintTop_toTopOf="@+id/sp_vsSearch_gpaRange"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsSearch_username"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_usernameLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsSearch_username"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsSearch_fname"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_fnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsSearch_fname"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsSearch_lname"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_lnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsSearch_lname"
+        app:srcCompat="@drawable/corner_arrow" />
+
+    <EditText
+        android:id="@+id/et_vsSearch_username"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:text="First Name:"
-        android:textAlignment="textEnd"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_usernameLabel"
         app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_usernameLabel" />
 
     <TextView
         android:id="@+id/tv_vsSearch_lnameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="14dp"
         android:text="Last Name:"
         android:textAlignment="textEnd"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_fnameLabel" />
-
-    <EditText
-        android:id="@+id/et_vsSearch_fname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="23dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textAlignment="textStart"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/et_vsSearch_username"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_fnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_username" />
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_fnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_fname" />
 
     <TextView
         android:id="@+id/tv_vsSearch_usernameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="25dp"
         android:text="Username:"
         android:textAlignment="textEnd"
         android:textSize="16sp"
@@ -58,129 +80,157 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_vsSearch_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textAlignment="textStart"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_usernameLabel"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/et_vsSearch_lname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="23dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/et_vsSearch_fname"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_lnameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_fname" />
-
     <Spinner
-        android:id="@+id/sp_vsSearch_gpaRange"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="23dp"
-        android:entries="@array/operator_list"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_gpaLabel"
-        app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_lname" />
-
-    <TextView
-        android:id="@+id/tv_vsSearch_selRangeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select range"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/sp_vsSearch_gpaRange"
-        app:layout_constraintEnd_toEndOf="@+id/sp_vsSearch_gpaRange"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/sp_vsSearch_gpaRange" />
-
-    <TextView
-        android:id="@+id/tv_vsSearch_gpaLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="44dp"
-        android:text="GPA:"
-        android:textAlignment="textEnd"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_lnameLabel" />
+        android:id="@+id/sp_vsSearch_majorList"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="16dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_majorLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_majorLabel" />
 
     <TextView
         android:id="@+id/tv_vsSearch_majorLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="14dp"
         android:text="Major:"
         android:textAlignment="textEnd"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_gpaLabel" />
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_gpaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/sp_vsSearch_gpaRange" />
+
+    <TextView
+        android:id="@+id/tv_vsSearch_gpaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GPA:"
+        android:textAlignment="textEnd"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_emailLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsSearch_selRangeLabel" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vsSearch_email"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_emailLabel"
+        app:layout_constraintTop_toTopOf="@+id/et_vsSearch_email"
+        app:srcCompat="@drawable/corner_arrow" />
 
     <EditText
         android:id="@+id/et_vsSearch_gpa"
         android:layout_width="0dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="@+id/et_vsSearch_lname"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_vsSearch_gpaRange"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sp_vsSearch_gpaRange"
         app:layout_constraintTop_toTopOf="@+id/sp_vsSearch_gpaRange" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_vsSearch_majorList"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_majorLabel"
+        app:layout_constraintTop_toTopOf="@+id/sp_vsSearch_majorList"
+        app:srcCompat="@drawable/corner_arrow" />
+
     <Spinner
-        android:id="@+id/sp_vsSearch_majorList"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="16dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_majorLabel" />
+        android:id="@+id/sp_vsSearch_gpaRange"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:entries="@array/operator_list"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_gpaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_selRangeLabel" />
 
     <TextView
-        android:id="@+id/tv_vsSearch_addNewMajor"
+        android:id="@+id/tv_vsSearch_selRangeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:text="+ Add New Major"
-        android:textAlignment="center"
-        android:textColor="@color/lions_blue"
+        android:layout_marginTop="14dp"
+        android:text="Select range"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/sp_vsSearch_gpaRange"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_email" />
+
+    <TextView
+        android:id="@+id/tv_vsSearch_fnameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="First Name:"
+        android:textAlignment="textEnd"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/sp_vsSearch_majorList"
-        app:layout_constraintEnd_toEndOf="@+id/sp_vsSearch_majorList"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_majorLabel" />
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_usernameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_username" />
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <EditText
+        android:id="@+id/et_vsSearch_fname"
         android:layout_width="0dp"
-        android:layout_height="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_vsSearch_addNewMajor"
-        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_addNewMajor"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_addNewMajor"
-        app:srcCompat="@drawable/blk_line_label" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_fnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_fnameLabel" />
+
+    <EditText
+        android:id="@+id/et_vsSearch_lname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_lnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_lnameLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsSearch_emailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Email:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_lnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/et_vsSearch_lname" />
+
+    <EditText
+        android:id="@+id/et_vsSearch_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_emailLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_emailLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
