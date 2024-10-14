@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView425"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/sp_vsSearch_gpaRange"
@@ -15,7 +15,7 @@
         app:srcCompat="@drawable/corner_arrow" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView435"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/et_vsSearch_username"
@@ -24,7 +24,7 @@
         app:srcCompat="@drawable/corner_arrow" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView445"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/et_vsSearch_fname"
@@ -33,7 +33,7 @@
         app:srcCompat="@drawable/corner_arrow" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView455"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/et_vsSearch_lname"
@@ -115,7 +115,7 @@
         app:layout_constraintTop_toTopOf="@+id/tv_vsSearch_selRangeLabel" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView465"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/et_vsSearch_email"
@@ -137,7 +137,7 @@
         app:layout_constraintTop_toTopOf="@+id/sp_vsSearch_gpaRange" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView475"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/sp_vsSearch_majorList"
@@ -150,7 +150,6 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
-        android:entries="@array/operator_list"
         app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_gpaLabel"
         app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_selRangeLabel" />
 
@@ -232,5 +231,69 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_vsSearch_emailLabel"
         app:layout_constraintTop_toBottomOf="@+id/tv_vsSearch_emailLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsSearch_usernameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Only Letters/Numbers/_.- Allowed"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsSearch_usernameLabel"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_usernameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsSearch_usernameLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsSearch_fnameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Letters Only"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsSearch_fnameLabel"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_fnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsSearch_fnameLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsSearch_lnameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Letters Only"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsSearch_lnameLabel"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_lnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsSearch_lnameLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsSearch_emailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Format = email@school.edu"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsSearch_emailLabel"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsSearch_emailLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsSearch_emailLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsSearch_gpaError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="GPA range = 1.0 to 4.0\n1 decimal place required"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_vsSearch_gpa"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsSearch_gpa"
+        app:layout_constraintStart_toStartOf="@+id/et_vsSearch_gpa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

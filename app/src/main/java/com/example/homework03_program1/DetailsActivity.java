@@ -325,15 +325,6 @@ public class DetailsActivity extends AppCompatActivity
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-//                if(DA_QuickTextCheckForGoodData(ALLOWED_NAME_CHARS, et_j_vsUpdate_fname.getText().toString()))
-//                {
-//                    da_goodFname = true;
-//                    Log.d("good data", "good data");
-//                }
-//                else
-//                {
-//                    da_goodFname = false;
-//                }
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -354,7 +345,6 @@ public class DetailsActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-
             }
         });
         et_j_vsUpdate_lname.addTextChangedListener(new TextWatcher()

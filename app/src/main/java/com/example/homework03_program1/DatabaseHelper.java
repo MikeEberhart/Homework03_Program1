@@ -163,65 +163,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
-
-    //    public void Db_readStudentData() // saving data from STUDENT_TABLE_NAME to StudentData
-//    {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
-////        String majorNameSelect = "SELECT majorName FROM " + MAJORS_TABLE_NAME + " WHERE majorId = '" + db_sdataCursor.getInt(6) + "';";
-////        String majNameSelect = "SELECT " + MAJORS_TABLE_NAME + ".majorName FROM " + MAJORS_TABLE_NAME + " INNER JOIN " + STUDENTS_TABLE_NAME + " ON " + MAJORS_TABLE_NAME + ".majorId=" + STUDENTS_TABLE_NAME + ".majorId"
-//        db_listOfStudents = new ArrayList<>();
-//        int i = 0;
-//        if(db_sdataCursor.moveToFirst())
-//        {
-//            do {
-//                Log.d("readStuData", "ReadStuData" + i);
-//                db_listOfStudents.add(new StudentData(db_sdataCursor.getString(0),
-//                        db_sdataCursor.getString(1),
-//                        db_sdataCursor.getString(2),
-//                        db_sdataCursor.getString(3),
-//                        db_sdataCursor.getInt(4),
-//                        db_sdataCursor.getDouble(5),
-//                        db_sdataCursor.getInt(6)));
-//                i++;
-//            }while(db_sdataCursor.moveToNext());
-//        }
-//        db_sdataCursor.close();
-//        StudentData.PassStudentData.setPassedStudentData(db_listOfStudents);
-//    }
-//    public void Db_readMajorData() // saving data from MAJOR_TABLE_NAME to MajorData
-//    {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
-//        db_listOfMajors = new ArrayList<>();
-//        db_listOfMajNames = new ArrayList<>();
-//        if (db_mdataCursor.moveToFirst())
-//        {
-//            do {
-//                db_listOfMajors.add(new MajorData(db_mdataCursor.getInt(0), db_mdataCursor.getString(1), db_mdataCursor.getInt(2)));
-//                db_listOfMajNames.add(db_mdataCursor.getString(1));
-////                Log.d("READ MAJOR DATA", db_listOfMajors.toString());
-//            } while (db_mdataCursor.moveToNext());
-//        }
-//        db_mdataCursor.close();
-//        MajorData.PassMajorData.setPassedMajorData(db_listOfMajors);
-//        MajorData.PassMajorData.setMp_MajorNames(db_listOfMajNames);
-//    }
-//    public void Db_readPrefixData() // saving data from MAJOR_TABLE_NAME//prefixName to MajorData.MajorNameAndPrefix
-//    {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor db_pdataCursor = db.rawQuery("SELECT prefixName FROM " + PREFIXES_TABLE_NAME, null);
-//        db_listOfPrefixes = new ArrayList<>();
-//        if(db_pdataCursor.moveToFirst())
-//        {
-//            do{
-//                db_listOfPrefixes.add(db_pdataCursor.getString(0));
-//            }while(db_pdataCursor.moveToNext());
-//            db_pdataCursor.close();
-//        }
-//        MajorData.PassMajorData.setMp_MajorPrefixes(db_listOfPrefixes);
-//    }
     public ArrayList<StudentData> DB_getListOfStudentData() // used to both save database to StudentData and return an ArrayList of the data
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -351,12 +292,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(STUDENTS_TABLE_NAME, null, addStudent);
         db.close();
     }
-
-    public void DB_deleteStudentFromDatabase(String student) {
+    public void DB_deleteStudentFromDatabase(String student)
+    {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + STUDENTS_TABLE_NAME + " WHERE username='" + student + "';");
     }
-
     public void DB_addNewMajorToDatabase(String maj, int p)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -366,12 +306,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(MAJORS_TABLE_NAME, null, addMajor);
         db.close();
     }
-
     public void DB_SaveUpdatedStudentData(String un, String fn, String ln, String em, int a, double g, int maj)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String updatedDatabase = "UPDATE " + STUDENTS_TABLE_NAME + " SET fname = '" + fn + "', lname = '" + ln + "', email = '" + em + "', age = " + a + ", gpa = " + g + ", majorId = " + maj + " WHERE username = '" + un + "';";
         db.execSQL(updatedDatabase);
         db.close();
+    }
+    public void DB_SearchForSetData(String un, String fn, String ln, String em, int a, double g, int maj)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectedSearch = "Select * FROM " + STUDENTS_TABLE_NAME + " WHERE username = " + un + " AND fname = " + fn + " AND lname = " + ln + " AND email = " + em + " AND age = " + a + " AND gpa = " + g + " AND majorId = " + maj + ";";
+        Cursor searchDB = db.rawQuery(selectedSearch, null);
+
+
+        searchDB.close();
     }
 }
