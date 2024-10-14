@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_inner_border">
+
+    <TextView
+        android:id="@+id/tv_rlCell_usernameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Username:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rlCell_fnameLabel"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_fname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="############"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_fnameLabel"
+        app:layout_constraintEnd_toStartOf="@+id/tv_rlCell_gpaLabel"
+        app:layout_constraintStart_toEndOf="@+id/tv_rlCell_fnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_fnameLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_lname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="############"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_lnameLabel"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rlCell_fname"
+        app:layout_constraintStart_toEndOf="@+id/tv_rlCell_lnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_lnameLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_fnameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="First Name:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rlCell_usernameLabel" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="############"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_usernameLabel"
+        app:layout_constraintEnd_toStartOf="@+id/tv_rlCell_ageLabel"
+        app:layout_constraintStart_toEndOf="@+id/tv_rlCell_usernameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_usernameLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_lnameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Last Name:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rlCell_fnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rlCell_fnameLabel" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_emailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Email:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rlCell_lnameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rlCell_lnameLabel" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="############################"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_emailLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_rlCell_emailLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_emailLabel" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_ageLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Age:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_username"
+        app:layout_constraintEnd_toStartOf="@+id/tv_rlCell_age"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_username" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="9999"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_ageLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_ageLabel" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_gpaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GPA:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_fname"
+        app:layout_constraintStart_toStartOf="@+id/tv_rlCell_ageLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_fname" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_gpa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.0"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_gpaLabel"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rlCell_age"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_gpaLabel" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_majorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Major:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rlCell_emailLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rlCell_emailLabel" />
+
+    <TextView
+        android:id="@+id/tv_rlCell_major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CIS - Computer Science"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rlCell_majorLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_rlCell_majorLabel"
+        tools:layout_editor_absoluteX="99dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

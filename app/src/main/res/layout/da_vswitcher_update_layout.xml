@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F9F2FA">
+    android:layout_height="match_parent">
 
 
     <ImageView
@@ -117,7 +116,6 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +142,6 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +168,6 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -198,7 +194,6 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="number"
-        android:text="Name"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -225,7 +220,6 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="number|numberDecimal"
-        android:text="Name"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -272,7 +266,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="Username cannot be changed"
+        android:text="Username cannot be edited"
         android:textColor="@color/design_default_color_error"
         app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_usernameLabel"
         app:layout_constraintStart_toEndOf="@+id/tv_vsUpdate_usernameLabel"
@@ -313,5 +307,90 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/save_icon_blk" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_fnameError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Enter a First Name"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_fnameLabel"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsUpdate_fname"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsUpdate_fnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsUpdate_fnameLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_lnameError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Enter a Last Name"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_lnameLabel"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsUpdate_lname"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsUpdate_lnameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsUpdate_lnameLabel"
+        app:layout_constraintVertical_bias=".50" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_emailError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Enter a Email"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_emailLabel"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsUpdate_email"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsUpdate_emailLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsUpdate_emailLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_ageError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Enter an Age"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_ageLabel"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsUpdate_age"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsUpdate_ageLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsUpdate_ageLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_gpaError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Enter a GPA"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_gpaLabel"
+        app:layout_constraintEnd_toEndOf="@+id/et_vsUpdate_gpa"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsUpdate_gpaLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsUpdate_gpaLabel" />
+
+    <TextView
+        android:id="@+id/tv_vsUpdate_majorError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="Enter a Major"
+        android:textAlignment="textStart"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vsUpdate_majorLabel"
+        app:layout_constraintEnd_toStartOf="@+id/tv_vsUpdate_addNewMajorBtn"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsUpdate_majorLabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_vsUpdate_majorLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

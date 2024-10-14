@@ -48,18 +48,27 @@ public class MajorData
     // static class for MajorData //
     static class PassMajorData
     {
-        private static boolean addNewMajorSelected;
+        private static boolean addMajorSelected;
+        private static boolean  backToDetails;
         static ArrayList<MajorData> passedMajorData;
         static ArrayList<String> mp_majorPrefixes;
         static ArrayList<String> mp_majorNames;
 
-        public static void setMP_AddNewMajorSelected(boolean selected)
+        public static void setMP_AddMajorFromDetails(boolean selected)
         {
-            addNewMajorSelected = selected;
+            addMajorSelected = selected;
         }
-        public static boolean getMP_AddNewMajorSelected()
+        public static boolean getMP_AddMajorFromDetails()
         {
-            return addNewMajorSelected;
+            return addMajorSelected;
+        }
+        public static void setMP_AddMajorBackToDetails(boolean back)
+        {
+            backToDetails = back;
+        }
+        public static boolean getMP_AddMajorBackToDetails()
+        {
+            return backToDetails;
         }
 
 

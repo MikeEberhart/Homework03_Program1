@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity
                 if(selectedStudent != -1)
                 {
                     dbHelper.DB_deleteStudentFromDatabase(main_listOfStudents.get(selectedStudent).getSd_username());
+                    main_listOfStudents.remove(selectedStudent);
+                    main_lv_adapter.notifyDataSetChanged();
                     selectedStudent = -1;
                 }
                 else
