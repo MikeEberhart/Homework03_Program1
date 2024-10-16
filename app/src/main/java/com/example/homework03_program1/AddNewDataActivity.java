@@ -21,6 +21,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,6 +57,7 @@ public class AddNewDataActivity extends AppCompatActivity
     TextView tv_j_vsAddNewStudent_addNewMajorBtn;
     Spinner sp_j_vsAddNewStudent_major;
     ArrayAdapter<String> ad_spMajAdapter;
+    ArrayList<StudentData> ad_passedStudentData;
     // Add New Major Views //
     ImageView iv_j_vsAddNewMajor_backBtn;
     ImageView iv_j_vsAddNewMajor_addNewMajorBtn;
@@ -65,7 +67,7 @@ public class AddNewDataActivity extends AppCompatActivity
     Spinner sp_j_vsAddNewMajor_majorPrefix;
     ArrayAdapter<String> ad_spPrefixAdapter;
     private static final String ALLOWED_USERNAME_CHARS = "^[a-zA-Z0-9_.-]+$"; // regex string allowing only upper and lower case along with number and a few symbols
-    private static final String ALLOWED_NAME_CHARS = "^[a-zA-Z\\s]+$"; // regex string allowing only upper and lower case
+    private static final String ALLOWED_NAME_CHARS = "^[a-zA-Z\\s]+$"; // regex string allowing only upper and lower case and space in case of unique name
     private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z](?:[a-zA-Z0-9_.-]*[a-zA-Z0-9])?+@[a-zA-Z.]+\\.edu$"; // regex string formatted so the last char in the email name can't be a special char and the school email can only contain letters and '.' and the last part must have .edu
     private static final String ALLOWED_AGE_CHARS =  "^(1[6789]|[2-9][0-9])$"; // regex string formatted making sure the minimal age is 16 with no maximal
     private static final String ALLOWED_GPA_CHARS = "^(1(\\.\\d+)|2(\\.\\d+)|3(\\.\\d+)|4(\\.0))$"; // regex string formatted so gpa range is 1.0 to 4.0
@@ -91,7 +93,6 @@ public class AddNewDataActivity extends AppCompatActivity
         AD_ListOfViews();
         AD_OnClickListener();
         AD_TextChangeEventListener();
-
         Log.d("add major outside", "if passedIntent");
         if(MajorData.PassMajorData.getMP_AddMajorFromDetails())
         {
@@ -121,10 +122,8 @@ public class AddNewDataActivity extends AppCompatActivity
         ad_vsSwitcher_addMajor = ad_inflater.inflate(R.layout.ad_vswitcher_addmajor_layout, null);
         // using dbHelper to get the data from the database
         ad_dbHelper = new DatabaseHelper(this);
-        ad_passedMajorNames = ad_dbHelper.DB_getListOfMajorNames();
-        ad_passedPrefixes = ad_dbHelper.DB_getListOfPrefixes();
-        ad_spMajAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ad_passedMajorNames);
-        ad_spPrefixAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ad_passedPrefixes);
+        ad_spMajAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ad_dbHelper.DB_getListOfMajorNames());
+        ad_spPrefixAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ad_dbHelper.DB_getListOfPrefixes());
 
     }
     private void AD_ListOfViews()
@@ -202,13 +201,26 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(ad_goodUsername && ad_goodFname && ad_goodLname && ad_goodEmail && ad_goodAge && ad_goodGpa && ad_majorSelected)
+                if(ad_goodUsername && ad_goodFname && ad_goodLname && ad_goodEmail && ad_goodAge && ad_goodGpa && ad_majorSelected && !AD_UsernameAlreadyExists() && !AD_EmailAlreadyExists())
                 {
 
                     Log.d("ADDED NEW STUDENT", String.valueOf(sp_j_vsAddNewStudent_major.getSelectedItemPosition()));
                     Log.d("First Name", et_j_vsAddNewStudent_fname.toString());
-                    AD_FormatAndSaveNewStudentData();
+                    AD_FormatAndSaveNewData();
                     AD_ResetNewStudentTextAndBools();
+                }
+                else if(AD_UsernameAlreadyExists() || AD_EmailAlreadyExists())
+                {
+                    if(AD_UsernameAlreadyExists())
+                    {
+                        tv_j_vsAddNewStudent_usernameError.setText("Username Not Available");
+                        tv_j_vsAddNewStudent_usernameError.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        tv_j_vsAddNewStudent_emailError.setText("Email Not Available");
+                        tv_j_vsAddNewStudent_emailError.setVisibility(View.VISIBLE);
+                    }
                 }
                 else
                 {
@@ -226,12 +238,10 @@ public class AddNewDataActivity extends AppCompatActivity
                 {
                     ad_majorSelected = true;
                     tv_j_vsAddNewStudent_majorError.setVisibility(View.INVISIBLE);
-
                 }
                 else
                 {
                     ad_majorSelected = false;
-//                    tv_j_vsAddNewStudent_majorError.setVisibility(View.VISIBLE);
                 }
             }
             @Override
@@ -253,12 +263,10 @@ public class AddNewDataActivity extends AppCompatActivity
                 }
                 else
                 {
-                    ad_passedMajorNames = ad_dbHelper.DB_getListOfMajorNames();
-                    ad_passedPrefixes = ad_dbHelper.DB_getListOfPrefixes();
                     ad_spMajAdapter.clear();
                     ad_spPrefixAdapter.clear();
-                    ad_spMajAdapter.addAll(ad_passedMajorNames);
-                    ad_spPrefixAdapter.addAll(ad_passedPrefixes);
+                    ad_spMajAdapter.addAll(ad_dbHelper.DB_getListOfMajorNames());
+                    ad_spPrefixAdapter.addAll(ad_dbHelper.DB_getListOfPrefixes());
                     ad_spMajAdapter.notifyDataSetChanged();
                     ad_spPrefixAdapter.notifyDataSetChanged();
                     MajorData.PassMajorData.setMP_AddMajorBackToDetails(false);
@@ -289,7 +297,7 @@ public class AddNewDataActivity extends AppCompatActivity
                 }
                 else if(ad_goodMajorName && ad_prefixSelected)
                 {
-                    AD_FormatAndSaveNewStudentData();
+                    AD_FormatAndSaveNewData();
                     AD_ResetNewMajorTextAndBools();
                 }
             }
@@ -326,7 +334,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -346,7 +353,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-
             }
         });
         et_j_vsAddNewStudent_fname.addTextChangedListener(new TextWatcher()
@@ -354,7 +360,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -375,7 +380,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-
             }
         });
         et_j_vsAddNewStudent_lname.addTextChangedListener(new TextWatcher()
@@ -383,7 +387,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -403,7 +406,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-
             }
         });
         et_j_vsAddNewStudent_email.addTextChangedListener(new TextWatcher()
@@ -411,7 +413,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -431,7 +432,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-
             }
         });
         et_j_vsAddNewStudent_age.addTextChangedListener(new TextWatcher()
@@ -439,7 +439,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -459,7 +458,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-
             }
         });
         et_j_vsAddNewStudent_gpa.addTextChangedListener(new TextWatcher()
@@ -467,7 +465,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -487,7 +484,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-
             }
         });
         // AddNewMajor TextChange Listener
@@ -496,7 +492,6 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -522,13 +517,16 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-
             }
         });
 
     }
-    private void AD_EmptyInputErrorCheck() // check to see if text box is empty // maybe combine this BadDataChecker?
+    private void AD_EmptyInputErrorCheck() // could probably combine this with the TextChangeEvent with a simple check if the textbox is .isEmpty()
     {
+        // check to see if text box is empty.
+        // Used to show an error if user hits the add btn
+        // BadDataChecker check while text is being typed not on initial load
+        // and the beforeTextChanged didn't work like I wanted
         if(vs_jAddNewData_viewSwitcher.getCurrentView() == ad_vsSwitcher_addStudent)
         {
             if(et_j_vsAddNewStudent_username.getText().toString().isEmpty())
@@ -583,7 +581,7 @@ public class AddNewDataActivity extends AppCompatActivity
     }
     private boolean AD_BadUserInput(String s, CharSequence cs)
     {
-        // was error checking with this for loop but read up on regex for java. pretty similar to how it's used in python as well.
+        // was error checking with a for loop but read up on regex for java.
         Pattern goodChars = Pattern.compile(s);
         Matcher checkingChars = goodChars.matcher(cs);
         boolean dataCheck = checkingChars.find();
@@ -596,18 +594,7 @@ public class AddNewDataActivity extends AppCompatActivity
             return true;
         }
     }
-    private boolean AD_MajorNameAlreadyExists(String s)
-    {
-        for(int i = 0; i < ad_passedMajorNames.size(); i++)
-        {
-            if(ad_passedMajorNames.get(i).equals(s))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    private void AD_FormatAndSaveNewStudentData() // convert input text to proper format before saving to the database
+    private void AD_FormatAndSaveNewData() // convert input text to proper format before saving to the database
     {
         if(vs_jAddNewData_viewSwitcher.getCurrentView() == ad_vsSwitcher_addStudent)
         {
@@ -668,5 +655,40 @@ public class AddNewDataActivity extends AppCompatActivity
         tv_j_vsAddNewMajor_majorPrefixError.setVisibility(View.INVISIBLE);
         ad_goodMajorName = false;
         ad_prefixSelected = false;
+    }
+    private boolean AD_MajorNameAlreadyExists(String s)
+    {
+        for(int i = 0; i < ad_dbHelper.DB_getListOfMajorNames().size(); i++)
+        {
+            if(ad_dbHelper.DB_getListOfMajorNames().get(i).equals(s))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean AD_UsernameAlreadyExists()
+    {
+        String uname = et_j_vsAddNewStudent_username.getText().toString();
+        for(int i = 0; i < ad_dbHelper.DB_StudentRecordCount(); i++)
+        {
+            if(uname.equalsIgnoreCase(ad_dbHelper.DB_getSingleStudentData(i).getSd_username()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean AD_EmailAlreadyExists()
+    {
+        String email = et_j_vsAddNewStudent_email.getText().toString();
+        for(int i = 0; i < ad_dbHelper.DB_StudentRecordCount(); i++)
+        {
+            if(email.equalsIgnoreCase(ad_dbHelper.DB_getSingleStudentData(i).getSd_email()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

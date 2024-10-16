@@ -11,25 +11,25 @@ import java.util.ArrayList;
 
 public class StudentListAdapter extends BaseAdapter
 {
-    Context sla_context_main;
-    ArrayList<StudentData> sla_studentList;
+    Context main_context;
+    ArrayList<StudentData> main_studentList;
 
     public StudentListAdapter(Context c, ArrayList<StudentData> sd)
     {
-        sla_context_main = c;
-        sla_studentList = sd;
+        main_context = c;
+        main_studentList = sd;
     }
 
     @Override
     public int getCount()
     {
-        return sla_studentList.size();
+        return main_studentList.size();
     }
 
     @Override
     public Object getItem(int i)
     {
-        return sla_studentList.get(i);
+        return main_studentList.get(i);
     }
 
     @Override
@@ -43,10 +43,10 @@ public class StudentListAdapter extends BaseAdapter
     {
         if(view == null)
         {
-            LayoutInflater mainListInflater = (LayoutInflater) sla_context_main.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater mainListInflater = (LayoutInflater) main_context.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
             view = mainListInflater.inflate(R.layout.main_student_list_cell, null);
         }
-        StudentData sd = sla_studentList.get(i);
+        StudentData sd = main_studentList.get(i);
         TextView tv_j_sla_username = view.findViewById(R.id.tv_slCell_username);
         TextView tv_j_sla_fname = view.findViewById(R.id.tv_slCell_fname);
         TextView tv_j_sla_lname = view.findViewById(R.id.tv_slCell_lname);

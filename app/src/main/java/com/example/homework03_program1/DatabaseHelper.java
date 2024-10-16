@@ -17,16 +17,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String MAJORS_TABLE_NAME = "Majors";
     private static final String PREFIXES_TABLE_NAME = "Prefixes";
     ArrayList<StudentData> db_listOfStudents;
+    ArrayList<StudentData> db_listOfSearchResults;
     ArrayList<MajorData> db_listOfMajors;
     ArrayList<String> db_listOfMajNames;
     ArrayList<String> db_listOfPrefixes;
+    ArrayList<String> db_listOfOperators;
 
 
     public DatabaseHelper(Context c)
     {
         // create database and give it a version number
         // change version number to populate a new db
-        super(c, DATABASE_NAME, null, 8);
+        super(c, DATABASE_NAME, null, 9);
     }
 
     @Override
@@ -59,25 +61,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + STUDENTS_TABLE_NAME + " (username varchar(50) primary key not null, " +
                 "fname varchar(50), lname varchar(50), email varchar(60), age integer, gpa double, " +
                 "majorId integer, foreign key (majorId) references " + MAJORS_TABLE_NAME + "(majorId));");
-
-
     }
-
     public void DB_PopulateData() // called in main to populate the object classes // might change all this
     {
         Log.d("Database Pop", "Database Pop");
         DB_PrefixesDData();
         DB_MajorsDData();
         DB_StudentDData();
-//        DB_readPrefixData();
-//        DB_readMajorData();
-//        DB_readStudentData();
-
     }
-
     private void DB_PrefixesDData() // adding dummy prefix data
     {
-        if (RecordCount(PREFIXES_TABLE_NAME) == 0) {
+        if (DB_RecordCount(PREFIXES_TABLE_NAME) == 0) {
             SQLiteDatabase db = this.getWritableDatabase();
             // insert predefined major prefix tags
             db.execSQL("INSERT INTO " + PREFIXES_TABLE_NAME + "(prefixName) VALUES ('AGRI');"); //0
@@ -109,10 +103,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
-
     private void DB_MajorsDData() // adding dummy major data
     {
-        if (RecordCount(MAJORS_TABLE_NAME) == 0) {
+        if (DB_RecordCount(MAJORS_TABLE_NAME) == 0) {
             SQLiteDatabase db = this.getWritableDatabase();
             // insert dummy data here
             db.execSQL("INSERT INTO " + MAJORS_TABLE_NAME + "(majorName, prefixId) VALUES ('American History', 15);");      //0
@@ -134,10 +127,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
-
     private void DB_StudentDData() // adding dummy student data
     {
-        if (RecordCount(STUDENTS_TABLE_NAME) == 0) {
+        if (DB_RecordCount(STUDENTS_TABLE_NAME) == 0) {
             SQLiteDatabase db = this.getWritableDatabase();
             // insert dummy data here
             db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('jdo27', 'John', 'Do', 'jdo@umich.edu', 20, 3.5, 6);");
@@ -163,7 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
-    public ArrayList<StudentData> DB_getListOfStudentData() // used to both save database to StudentData and return an ArrayList of the data
+    public ArrayList<StudentData> DB_getListOfStudentData() // used to  return an ArrayList of the StudentData
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
@@ -181,12 +173,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         db_sdataCursor.getDouble(5),
                         db_sdataCursor.getInt(6)));
             } while (db_sdataCursor.moveToNext());
+            db_sdataCursor.close();
+            db.close();
         }
-        db_sdataCursor.close();
         return db_listOfStudents;
     }
-
-    public ArrayList<MajorData> DB_getListOfMajorData() // might not need // used to both save database to MajorData and return an ArrayList of the data
+    public ArrayList<MajorData> DB_getListOfMajorData() // might not need // was used to return an ArrayList of the MajorData
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
@@ -197,10 +189,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db_listOfMajors.add(new MajorData(db_mdataCursor.getInt(0), db_mdataCursor.getString(1), db_mdataCursor.getInt(2)));
             } while (db_mdataCursor.moveToNext());
             db_mdataCursor.close();
+            db.close();
         }
         return db_listOfMajors;
     }
-
     public ArrayList<String> DB_getListOfMajorNames() // only being used to populate spinner data so far
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -213,10 +205,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db_listOfMajNames.add(db_mdataCursor.getString(1));
             } while (db_mdataCursor.moveToNext());
             db_mdataCursor.close();
+            db.close();
         }
         return db_listOfMajNames;
     }
-
     public ArrayList<String> DB_getListOfPrefixes() // used for spinners
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -228,25 +220,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 db_listOfPrefixes.add(db_pdataCursor.getString(1));
             } while (db_pdataCursor.moveToNext());
+            db_pdataCursor.close();
+            db.close();
         }
-        db_pdataCursor.close();
         return db_listOfPrefixes;
     }
-
-    public int RecordCount(String tableName) {
+    public int DB_RecordCount(String tableName)
+    {
         SQLiteDatabase db = this.getReadableDatabase();
-        int rowCount = (int) DatabaseUtils.queryNumEntries(db, tableName);
-        db.close();
-        return rowCount;
+        String rowCnt = "SELECT COUNT(*) FROM " + tableName + ";";
+        int count = 0;
+        Cursor db_rowCnt = db.rawQuery(rowCnt, null);
+        if(db_rowCnt != null)
+        {
+            db_rowCnt.moveToFirst();
+            count = db_rowCnt.getInt(0);
+            db_rowCnt.close();
+            db.close();
+        }
+        return count;
     }
-
+    public int DB_StudentRecordCount()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String rowCnt = "SELECT COUNT(*) FROM " + STUDENTS_TABLE_NAME + ";";
+        int count = 0;
+        Cursor db_rowCnt = db.rawQuery(rowCnt, null);
+        if(db_rowCnt != null)
+        {
+            db_rowCnt.moveToFirst();
+            count = db_rowCnt.getInt(0);
+            db_rowCnt.close();
+            db.close();
+        }
+        return count;
+    }
     public StudentData DB_getSingleStudentData(int i)
     {
         StudentData temp_student = new StudentData();
         SQLiteDatabase db = this.getReadableDatabase();
         String getRowData = "SELECT * FROM " + STUDENTS_TABLE_NAME + " LIMIT 1 OFFSET " + i + ";";
         Cursor db_rowData = db.rawQuery(getRowData, null);
-        if (db_rowData != null) {
+        if (db_rowData != null)
+        {
             db_rowData.moveToFirst();
             temp_student.setSd_username(db_rowData.getString(0));
             temp_student.setSd_fname(db_rowData.getString(1));
@@ -256,12 +272,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             temp_student.setSd_gpa(db_rowData.getDouble(5));
             temp_student.setSd_major(db_rowData.getInt(6));
             db_rowData.close();
+            db.close();
         }
         Log.d("getting row data", temp_student.toString());
         return temp_student;
     }
-
-    public MajorData DB_getSingleMajorData(int i) {
+    public MajorData DB_getSingleMajorData(int i)
+    {
         MajorData temp_major = new MajorData();
         SQLiteDatabase db = this.getReadableDatabase();
         String getRowData = "SELECT * FROM " + MAJORS_TABLE_NAME + " LIMIT 1 OFFSET " + i + ";";
@@ -272,10 +289,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             temp_major.setMd_majorName(db_rowData.getString(1));
             temp_major.setMd_majorPrefixId(db_rowData.getInt(2));
             db_rowData.close();
+            db.close();
         }
         return temp_major;
     }
-
     public void DB_addNewStudentToDatabase(String uname, String fname, String lname, String email, int age, double gpa, int major)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -296,6 +313,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + STUDENTS_TABLE_NAME + " WHERE username='" + student + "';");
+        db.close();
     }
     public void DB_addNewMajorToDatabase(String maj, int p)
     {
@@ -313,13 +331,83 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(updatedDatabase);
         db.close();
     }
-    public void DB_SearchForSetData(String un, String fn, String ln, String em, int a, double g, int maj)
+    public ArrayList<StudentData> DB_SearchForSetData(String sel)
+    {
+
+//        String range = "is not null";
+//        double temp_gpa;
+//        if(o >= 0)
+//        {
+//            range = operators.get(o);
+//
+//        }
+//        if(Double.parseDouble(g) == -1)
+//        {
+//            g = "is not null";
+//        }
+//        else
+//        {
+//            temp_gpa = Double.parseDouble(g);
+//        }
+//        if(Integer.parseInt(maj) == -1)
+//        {
+//            maj = "is not null";
+//        }
+//        Log.d("range", range);
+        SQLiteDatabase db = this.getReadableDatabase();
+        db_listOfSearchResults = new ArrayList<>();
+        String selectedSearch = "Select * FROM " + STUDENTS_TABLE_NAME + sel + ";";  //WHERE username = " + un + " AND fname = " + fn + " AND lname = " + ln + " AND email = " + em + " AND gpa '" + range + "' " + g + " AND majorId = " + Integer.parseInt(maj) + ";";
+
+        Log.d("before the cursor", "before the cursor");
+
+        Cursor db_searchQuery = db.rawQuery(selectedSearch, null);
+        Log.d("after the cursor", "after the cursor");
+
+        int j = 0; //testing
+
+        if(db_searchQuery != null && DB_CountOfSearchResults(sel) != 0)
+        {
+            Log.d("before loop", "before loop");
+            db_searchQuery.moveToFirst();
+            do
+            {
+                Log.d("start of loop", "start of loop");
+                db_listOfSearchResults.add(new StudentData(db_searchQuery.getString(0),
+                        db_searchQuery.getString(1),
+                        db_searchQuery.getString(2),
+                        db_searchQuery.getString(3),
+                        db_searchQuery.getInt(4),
+                        db_searchQuery.getDouble(5),
+                        db_searchQuery.getInt(6)));
+                Log.d("list of results", db_listOfSearchResults.get(j).getSd_username());
+                Log.d(String.valueOf(j), "Counting loop");
+                j++;
+            } while (db_searchQuery.moveToNext());
+            db_searchQuery.close();
+            db.close();
+
+        }
+        Log.d("Return List", "Return List");
+        return db_listOfSearchResults;
+    }
+    public int DB_CountOfSearchResults(String sel)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectedSearch = "Select * FROM " + STUDENTS_TABLE_NAME + " WHERE username = " + un + " AND fname = " + fn + " AND lname = " + ln + " AND email = " + em + " AND age = " + a + " AND gpa = " + g + " AND majorId = " + maj + ";";
-        Cursor searchDB = db.rawQuery(selectedSearch, null);
-
-
-        searchDB.close();
+        String count = "SELECT COUNT(*) FROM " + STUDENTS_TABLE_NAME + sel + ";";
+        Cursor db_resultCnt = db.rawQuery(count, null);
+        int cnt;
+        if(db_resultCnt != null)
+        {
+            db_resultCnt.moveToFirst();
+            cnt = db_resultCnt.getInt(0);
+            Log.d(String.valueOf(cnt), "results count");
+            db_resultCnt.close();
+            // closing the db here will cause error for the search queries saying the pool is closed.
+        }
+        else
+        {
+            cnt = 0;
+        }
+        return cnt;
     }
 }

@@ -7,14 +7,11 @@
 
     <Spinner
         android:id="@+id/sp_vsAddNewMajor_majorPrefix"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vsAddNewMajor_majorPrefixLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_vsAddNewMajor_majorPrefixError" />
 
     <EditText
         android:id="@+id/et_vsAddNewMajor_majorName"
@@ -25,6 +22,7 @@
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="text"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_vsAddNewMajor_majorPrefixLabel"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,35 +88,35 @@
         android:id="@+id/imageView8"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginEnd="16dp"
         android:rotation="90"
         app:layout_constraintBottom_toTopOf="@+id/sp_vsAddNewMajor_majorPrefix"
-        app:layout_constraintStart_toStartOf="@+id/sp_vsAddNewMajor_majorPrefix"
+        app:layout_constraintEnd_toStartOf="@+id/tv_vsAddNewMajor_majorPrefixLabel"
         app:layout_constraintTop_toTopOf="@+id/tv_vsAddNewMajor_majorPrefixLabel"
-        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/corner_arrow" />
 
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="16dp"
         android:rotation="90"
         android:rotationY="180"
         app:layout_constraintBottom_toTopOf="@+id/sp_vsAddNewMajor_majorPrefix"
-        app:layout_constraintEnd_toEndOf="@+id/sp_vsAddNewMajor_majorPrefix"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsAddNewMajor_majorPrefixLabel"
         app:layout_constraintTop_toTopOf="@+id/tv_vsAddNewMajor_majorPrefixLabel"
-        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/corner_arrow" />
 
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginEnd="16dp"
         android:rotation="90"
         app:layout_constraintBottom_toTopOf="@+id/et_vsAddNewMajor_majorName"
-        app:layout_constraintStart_toStartOf="@+id/et_vsAddNewMajor_majorName"
+        app:layout_constraintEnd_toStartOf="@+id/tv_vsAddNewMajor_majorNameLabel"
         app:layout_constraintTop_toTopOf="@+id/tv_vsAddNewMajor_majorNameLabel"
         app:layout_constraintVertical_bias="0.75"
         app:srcCompat="@drawable/corner_arrow" />
@@ -127,11 +125,11 @@
         android:id="@+id/imageView8"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="16dp"
         android:rotation="90"
         android:rotationY="180"
         app:layout_constraintBottom_toTopOf="@+id/et_vsAddNewMajor_majorName"
-        app:layout_constraintEnd_toEndOf="@+id/et_vsAddNewMajor_majorName"
+        app:layout_constraintStart_toEndOf="@+id/tv_vsAddNewMajor_majorNameLabel"
         app:layout_constraintTop_toTopOf="@+id/tv_vsAddNewMajor_majorNameLabel"
         app:layout_constraintVertical_bias="0.75"
         app:srcCompat="@drawable/corner_arrow" />

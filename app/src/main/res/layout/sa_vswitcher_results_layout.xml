@@ -13,6 +13,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="50dp"
+        android:background="@drawable/listview_rounded_edges"
         app:layout_constraintBottom_toTopOf="@+id/im_vsResults_backBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +21,8 @@
 
     <ImageButton
         android:id="@+id/im_vsResults_backBtn"
-        android:layout_width="60dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/btn_rounded_edges"
@@ -30,4 +31,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/back_btn_blk" />
+
+    <TextView
+        android:id="@+id/tv_vsResults_noResultsFoundError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="500dp"
+        android:text="NO RESULTS FOUND"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="invisible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

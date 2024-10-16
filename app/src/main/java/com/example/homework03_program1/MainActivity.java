@@ -6,7 +6,6 @@
 package com.example.homework03_program1;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     Intent main_searchIntent;
     Intent main_addIntent;
     Intent main_detailsIntent;
-    StudentListAdapter main_lv_adapter;
+    StudentListAdapter main_lv_studentList_adapter;
     ArrayList<StudentData> main_listOfStudents;
     ArrayList<String> main_listOfMajors;
     DatabaseHelper dbHelper;
@@ -41,40 +39,30 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        Main_ListOfIntents();
+        Main_InitData();
         Main_ListOfViews();
-        Main_PopData();
         Main_OnClickListeners();
 //        this.getCurrentFocus();
 
     }
-
-    private void Main_ListOfIntents()
+    private void Main_InitData()
     {
         main_searchIntent = new Intent(this, SearchActivity.class);
         main_addIntent = new Intent(this, AddNewDataActivity.class);
         main_detailsIntent = new Intent(this, DetailsActivity.class);
-
+        dbHelper = new DatabaseHelper(this);
+        dbHelper.DB_PopulateData();
+        main_listOfStudents = dbHelper.DB_getListOfStudentData(); // gets an arraylist<StudentData> from db to be used to populate the listView data
+        main_lv_studentList_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
     }
-
     private void Main_ListOfViews()
     {
         lv_jMain_listOfStudents = findViewById(R.id.lv_vMain_listOfStudents);
+        lv_jMain_listOfStudents.setAdapter(main_lv_studentList_adapter);
         iv_jMain_searchBtn = findViewById(R.id.iv_vMain_searchBtn);
         iv_jMain_addBtn = findViewById(R.id.iv_vMain_addBtn);
         iv_jMain_deleteBtn = findViewById(R.id.iv_vMain_deleteBtn);
     }
-    private void Main_PopData()
-    {
-        Log.d("Main", "Main");
-        dbHelper = new DatabaseHelper(this);
-        dbHelper.DB_PopulateData();
-
-        main_listOfStudents = dbHelper.DB_getListOfStudentData(); // gets an arraylist<StudentData> from db to be used to populate the listView data
-        main_lv_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
-        lv_jMain_listOfStudents.setAdapter(main_lv_adapter);
-    }
-
     private void Main_OnClickListeners()
     {
         iv_jMain_searchBtn.setOnClickListener(new View.OnClickListener()
@@ -102,7 +90,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     dbHelper.DB_deleteStudentFromDatabase(main_listOfStudents.get(selectedStudent).getSd_username());
                     main_listOfStudents.remove(selectedStudent);
-                    main_lv_adapter.notifyDataSetChanged();
+                    main_lv_studentList_adapter.notifyDataSetChanged();
                     selectedStudent = -1;
                 }
                 else

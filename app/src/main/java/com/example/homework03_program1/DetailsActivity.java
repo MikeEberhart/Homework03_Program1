@@ -261,7 +261,7 @@ public class DetailsActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d("Outside save", "Outside save");
-                if(da_goodFname && da_goodLname && da_goodEmail && da_goodAge && da_goodGpa && da_majorSelected)
+                if(da_goodFname && da_goodLname && da_goodEmail && da_goodAge && da_goodGpa && da_majorSelected && !DA_EmailAlreadyExists())
                 {
                     Log.d("Updating Student", "Updating Student");
                     DA_FormatAndSaveUpdatedStudent();
@@ -274,6 +274,11 @@ public class DetailsActivity extends AppCompatActivity
                         tv_jDetails_headerText.setText("Student Details");
                         vs_jDetails_viewSwitcher.showPrevious();
                     }
+                }
+                else if(DA_EmailAlreadyExists())
+                {
+                    tv_j_vsUpdate_emailError.setText("Email Not Available");
+                    tv_j_vsUpdate_emailError.setVisibility(View.VISIBLE);
                 }
                 else
                 {
@@ -305,7 +310,7 @@ public class DetailsActivity extends AppCompatActivity
     }
     private boolean DA_BadUserInput(String s, CharSequence cs)
     {
-        // was error checking with this for loop but read up on regex for java. pretty similar to how it's used in python as well.
+        // was error checking with a for loop but read up on regex for java.
         Pattern goodChars = Pattern.compile(s);
         Matcher checkingChars = goodChars.matcher(cs);
         boolean dataCheck = checkingChars.find();
@@ -532,19 +537,18 @@ public class DetailsActivity extends AppCompatActivity
         da_dbHelper.DB_SaveUpdatedStudentData(un,fn,ln,em,age,gpa,maj);
 
     }
-    private boolean DA_QuickTextCheckForGoodData(String s, String o) // dont need this delete later
+    private boolean DA_EmailAlreadyExists()
     {
-        Pattern goodChars = Pattern.compile(s);
-        Matcher checkingChars = goodChars.matcher(o);
-        boolean dataCheck = checkingChars.find();
-        if(dataCheck)
+        String email = et_j_vsUpdate_email.getText().toString();
+        int currentStudent = StudentData.PassStudentData.getLvMainLongClickPos();
+        for(int i = 0; i < da_dbHelper.DB_StudentRecordCount(); i++)
         {
-            return true;
+            if(email.equalsIgnoreCase(da_dbHelper.DB_getSingleStudentData(i).getSd_email()) && currentStudent != i)
+            {
+                return true;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
 }
