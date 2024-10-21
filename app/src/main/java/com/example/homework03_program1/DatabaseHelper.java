@@ -334,26 +334,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<StudentData> DB_SearchForSetData(String sel)
     {
 
-//        String range = "is not null";
-//        double temp_gpa;
-//        if(o >= 0)
-//        {
-//            range = operators.get(o);
-//
-//        }
-//        if(Double.parseDouble(g) == -1)
-//        {
-//            g = "is not null";
-//        }
-//        else
-//        {
-//            temp_gpa = Double.parseDouble(g);
-//        }
-//        if(Integer.parseInt(maj) == -1)
-//        {
-//            maj = "is not null";
-//        }
-//        Log.d("range", range);
         SQLiteDatabase db = this.getReadableDatabase();
         db_listOfSearchResults = new ArrayList<>();
         String selectedSearch = "Select * FROM " + STUDENTS_TABLE_NAME + sel + ";";  //WHERE username = " + un + " AND fname = " + fn + " AND lname = " + ln + " AND email = " + em + " AND gpa '" + range + "' " + g + " AND majorId = " + Integer.parseInt(maj) + ";";
