@@ -169,9 +169,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
-        db_listOfStudents = new ArrayList<>();
-        if (db_sdataCursor != null) {
-            db_sdataCursor.moveToFirst();
+        db_listOfStudents = null;
+        if (db_sdataCursor.moveToFirst())
+        {
+            db_listOfStudents = new ArrayList<>();
             do {
                 db_listOfStudents.add(new StudentData(db_sdataCursor.getString(0),
                         db_sdataCursor.getString(1),
@@ -191,10 +192,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
-        db_listOfMajors = new ArrayList<>();
-        if (db_mdataCursor != null) {
-            db_mdataCursor.moveToFirst();
-            do {
+        db_listOfMajors = null;
+        if (db_mdataCursor.moveToFirst())
+        {
+            db_listOfMajors = new ArrayList<>();
+            do{
                 db_listOfMajors.add(new MajorData(db_mdataCursor.getInt(0), db_mdataCursor.getString(1), db_mdataCursor.getInt(2)));
             } while (db_mdataCursor.moveToNext());
             db_mdataCursor.close();
@@ -208,10 +210,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
-        db_listOfMajNames = new ArrayList<>();
-        db_listOfMajNames.add("-Select a Major-"); // setting pos 0 to -Select Major- to act as a null selection and display mainly for AddNewStudent spinner
-        if (db_mdataCursor != null) {
-            db_mdataCursor.moveToFirst();
+        db_listOfMajNames = null;
+        if (db_mdataCursor.moveToFirst())
+        {
+            db_listOfMajNames = new ArrayList<>();
+            db_listOfMajNames.add("-Select a Major-"); // setting pos 0 to -Select Major- to act as a null selection and display mainly for AddNewStudent spinner
             do {
                 db_listOfMajNames.add(db_mdataCursor.getString(1));
             } while (db_mdataCursor.moveToNext());
@@ -225,10 +228,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_pdataCursor = db.rawQuery("SELECT * FROM " + PREFIXES_TABLE_NAME, null);
-        db_listOfPrefixes = new ArrayList<>();
-        db_listOfPrefixes.add("-Select a Prefix-");
-        if (db_pdataCursor != null) {
-            db_pdataCursor.moveToFirst();
+        db_listOfPrefixes = null;
+        if (db_pdataCursor.moveToFirst())
+        {
+            db_listOfPrefixes = new ArrayList<>();
+            db_listOfPrefixes.add("-Select a Prefix-");
             do {
                 db_listOfPrefixes.add(db_pdataCursor.getString(1));
             } while (db_pdataCursor.moveToNext());
@@ -245,9 +249,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String rowCnt = "SELECT COUNT(*) FROM " + tableName + ";";
         int count = 0;
         Cursor db_rowCnt = db.rawQuery(rowCnt, null);
-        if(db_rowCnt != null)
+        if(db_rowCnt.moveToFirst())
         {
-            db_rowCnt.moveToFirst();
             count = db_rowCnt.getInt(0);
             db_rowCnt.close();
             db.close();
@@ -261,9 +264,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String rowCnt = "SELECT COUNT(*) FROM " + STUDENTS_TABLE_NAME + ";";
         int count = 0;
         Cursor db_rowCnt = db.rawQuery(rowCnt, null);
-        if(db_rowCnt != null)
+        if(db_rowCnt.moveToFirst())
         {
-            db_rowCnt.moveToFirst();
             count = db_rowCnt.getInt(0);
             db_rowCnt.close();
             db.close();
@@ -273,13 +275,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // used to return the data for a single selected student //
     public StudentData DB_getSingleStudentData(int i)
     {
-        StudentData temp_student = new StudentData();
+        StudentData temp_student = null;
         SQLiteDatabase db = this.getReadableDatabase();
         String getRowData = "SELECT * FROM " + STUDENTS_TABLE_NAME + " LIMIT 1 OFFSET " + i + ";";
         Cursor db_rowData = db.rawQuery(getRowData, null);
-        if (db_rowData != null)
+        if (db_rowData.moveToFirst())
         {
-            db_rowData.moveToFirst();
+            temp_student = new StudentData();
             temp_student.setSd_username(db_rowData.getString(0));
             temp_student.setSd_fname(db_rowData.getString(1));
             temp_student.setSd_lname(db_rowData.getString(2));
@@ -290,18 +292,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db_rowData.close();
             db.close();
         }
-        Log.d("getting row data", temp_student.toString());
         return temp_student;
     }
     // used to return the data for a single selected major //
     public MajorData DB_getSingleMajorData(int i)
     {
-        MajorData temp_major = new MajorData();
+        MajorData temp_major = null;
         SQLiteDatabase db = this.getReadableDatabase();
         String getRowData = "SELECT * FROM " + MAJORS_TABLE_NAME + " LIMIT 1 OFFSET " + i + ";";
         Cursor db_rowData = db.rawQuery(getRowData, null);
-        if (db_rowData != null) {
-            db_rowData.moveToFirst();
+        if (db_rowData.moveToFirst())
+        {
+            temp_major = new MajorData();
             temp_major.setMd_majorId(db_rowData.getInt(0));
             temp_major.setMd_majorName(db_rowData.getString(1));
             temp_major.setMd_majorPrefixId(db_rowData.getInt(2));
@@ -364,14 +366,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<StudentData> DB_SearchForSetData(String sel)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        db_listOfSearchResults = new ArrayList<>();
+        db_listOfSearchResults = null;
         String selectedSearch = "Select * FROM " + STUDENTS_TABLE_NAME + sel + ";";
         Cursor db_searchQuery = db.rawQuery(selectedSearch, null);
-        if(db_searchQuery != null && DB_CountOfSearchResults(sel) != 0)
+        if(db_searchQuery.moveToFirst() && DB_CountOfSearchResults(sel) != 0)
         {
-            db_searchQuery.moveToFirst();
-            do
-            {
+            db_listOfSearchResults = new ArrayList<>();
+            do{
                 db_listOfSearchResults.add(new StudentData(db_searchQuery.getString(0),
                         db_searchQuery.getString(1),
                         db_searchQuery.getString(2),
@@ -392,9 +393,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String count = "SELECT COUNT(*) FROM " + STUDENTS_TABLE_NAME + sel + ";";
         Cursor db_resultCnt = db.rawQuery(count, null);
         int cnt;
-        if(db_resultCnt != null)
+        if(db_resultCnt.moveToFirst())
         {
-            db_resultCnt.moveToFirst();
             cnt = db_resultCnt.getInt(0);
             db_resultCnt.close();
         }

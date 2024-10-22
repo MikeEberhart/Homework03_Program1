@@ -32,7 +32,17 @@ public class SearchResultsAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-        return results_listOfStudents.size();
+        // I changed my object arrays in my database helper to start as null like mentioned in class
+        // so if no results were found null was being returned causing an error to happen here
+        // getCount needs to return an int so I had to put this if statement here
+        if(results_listOfStudents == null)
+        {
+            return 0;
+        }
+        else
+        {
+            return results_listOfStudents.size();
+        }
     }
     @Override
     public Object getItem(int i)

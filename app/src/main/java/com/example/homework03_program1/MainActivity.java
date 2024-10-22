@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
             {
                 selectedStudent = position;
             }
-            //look for something to edit the background color so it changes with whoever is selected
+            //look for something to edit the background color so it changes with whoever is selected then changes back when they are no longer selected
         });
         lv_jMain_listOfStudents.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

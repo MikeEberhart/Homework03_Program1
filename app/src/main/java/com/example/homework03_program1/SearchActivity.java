@@ -165,7 +165,7 @@ public class SearchActivity extends AppCompatActivity
                     tv_j_vsResults_noResultsFoundError.setVisibility(View.INVISIBLE);
                     SA_GetSearchFields();
                     tv_j_vSearch_headerText.setText("Search Results");
-                    if(sa_listOfSearchResults.isEmpty())
+                    if(sa_listOfSearchResults == null || sa_listOfSearchResults.isEmpty())
                     {
                         tv_j_vsResults_noResultsFoundError.setVisibility(View.VISIBLE);
                     }
