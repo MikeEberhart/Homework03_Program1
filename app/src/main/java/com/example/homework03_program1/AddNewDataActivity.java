@@ -1,3 +1,8 @@
+//=================================================================================================//
+// Name: Mike Eberhart
+// Date: 30 September 2024
+// Desc: An application that will allow an admin(you) to add/edit/remove students into the registry
+//=================================================================================================//
 package com.example.homework03_program1;
 
 import android.app.Activity;
@@ -16,10 +21,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -37,8 +40,6 @@ public class AddNewDataActivity extends AppCompatActivity
     View ad_vsSwitcher_addStudent;
     View ad_vsSwitcher_addMajor;
     DatabaseHelper ad_dbHelper;
-    ArrayList<String> ad_passedPrefixes;
-    ArrayList<String> ad_passedMajorNames;
     // Add New Student Views //
     ImageView iv_j_vsAddNewStudent_addStudentBtn;
     EditText et_j_vsAddNewStudent_username;
@@ -57,7 +58,6 @@ public class AddNewDataActivity extends AppCompatActivity
     TextView tv_j_vsAddNewStudent_addNewMajorBtn;
     Spinner sp_j_vsAddNewStudent_major;
     ArrayAdapter<String> ad_spMajAdapter;
-    ArrayList<StudentData> ad_passedStudentData;
     // Add New Major Views //
     ImageView iv_j_vsAddNewMajor_backBtn;
     ImageView iv_j_vsAddNewMajor_addNewMajorBtn;
@@ -92,12 +92,13 @@ public class AddNewDataActivity extends AppCompatActivity
         AD_InitData();
         AD_ListOfViews();
         AD_OnClickListener();
-        AD_TextChangeEventListener();
-        Log.d("add major outside", "if passedIntent");
+        AD_TextChangedEventListener();
+        // if statement used to check which view this activity was started from //
+        // since I'm using ViewSwitcher to cut down on the number of activities //
+        // really just wanted to try it out this way and it worked so I ran with it //
         if(MajorData.PassMajorData.getMP_AddMajorFromDetails())
         {
             ad_initByDetailsActivity = true;
-            Log.d("add major inside", "if passedIntent");
             tv_jAddNewData_headerText.setText("Add New Major");
             MajorData.PassMajorData.setMP_AddMajorFromDetails(false);
             vs_jAddNewData_viewSwitcher.setAnimateFirstView(true);
@@ -110,6 +111,7 @@ public class AddNewDataActivity extends AppCompatActivity
             vs_jAddNewData_viewSwitcher.setAnimateFirstView(true);
         }
     }
+    // used to Initialized the Data for the adapters and Intents along with the Arrays from the database //
     private void AD_InitData()
     {
 
@@ -126,6 +128,7 @@ public class AddNewDataActivity extends AppCompatActivity
         ad_spPrefixAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ad_dbHelper.DB_getListOfPrefixes());
 
     }
+    // used to house all the Views being Initialized //
     private void AD_ListOfViews()
     {
         // Main Views //
@@ -171,6 +174,7 @@ public class AddNewDataActivity extends AppCompatActivity
         tv_j_vsAddNewMajor_majorPrefixError.setVisibility(View.INVISIBLE);
 
     }
+    // used to house all the OnClickListeners //
     private void AD_OnClickListener()
     {
         // Main Listeners
@@ -193,7 +197,6 @@ public class AddNewDataActivity extends AppCompatActivity
                     tv_jAddNewData_headerText.setText("Add New Major");
                     vs_jAddNewData_viewSwitcher.showNext();
                 }
-
             }
         });
         iv_j_vsAddNewStudent_addStudentBtn.setOnClickListener(new View.OnClickListener()
@@ -203,9 +206,6 @@ public class AddNewDataActivity extends AppCompatActivity
             {
                 if(ad_goodUsername && ad_goodFname && ad_goodLname && ad_goodEmail && ad_goodAge && ad_goodGpa && ad_majorSelected && !AD_UsernameAlreadyExists() && !AD_EmailAlreadyExists())
                 {
-
-                    Log.d("ADDED NEW STUDENT", String.valueOf(sp_j_vsAddNewStudent_major.getSelectedItemPosition()));
-                    Log.d("First Name", et_j_vsAddNewStudent_fname.toString());
                     AD_FormatAndSaveNewData();
                     AD_ResetNewStudentTextAndBools();
                 }
@@ -225,7 +225,6 @@ public class AddNewDataActivity extends AppCompatActivity
                 else
                 {
                     AD_EmptyInputErrorCheck();
-                    Log.d("NOT ADDED NEW STUDENT", "NOT ADDED NEW STUDENT");
                 }
             }
         });
@@ -273,7 +272,6 @@ public class AddNewDataActivity extends AppCompatActivity
                     tv_jAddNewData_headerText.setText("Add New Student");
                     vs_jAddNewData_viewSwitcher.showPrevious();
                 }
-
             }
         });
         iv_j_vsAddNewMajor_addNewMajorBtn.setOnClickListener(new View.OnClickListener()
@@ -316,7 +314,6 @@ public class AddNewDataActivity extends AppCompatActivity
                 {
                     ad_prefixSelected = false;
                 }
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent)
@@ -325,7 +322,8 @@ public class AddNewDataActivity extends AppCompatActivity
             }
         });
     }
-    private void AD_TextChangeEventListener()
+    // used to house all the TextChangeEventListener //
+    private void AD_TextChangedEventListener()
     {
         // if CharSequence doesn't equal allowed_chars error messages = visible
         // AddNewStudent TextChange Listeners
@@ -519,13 +517,13 @@ public class AddNewDataActivity extends AppCompatActivity
             {
             }
         });
-
     }
-    private void AD_EmptyInputErrorCheck() // could probably combine this with the TextChangeEvent with a simple check if the textbox is .isEmpty()
+    // used to check if any EditText boxes are empty making sure the add button isn't clicked while the boxes are empty //
+    private void AD_EmptyInputErrorCheck()
     {
         // check to see if text box is empty.
         // Used to show an error if user hits the add btn
-        // BadDataChecker check while text is being typed not on initial load
+        // AD_BadUserInput check while text is being typed not on initial load
         // and the beforeTextChanged didn't work like I wanted
         if(vs_jAddNewData_viewSwitcher.getCurrentView() == ad_vsSwitcher_addStudent)
         {
@@ -579,6 +577,7 @@ public class AddNewDataActivity extends AppCompatActivity
             }
         }
     }
+    // used to check for bad user input depending on the "valid" input pattern (s) and text being entered (cs) //
     private boolean AD_BadUserInput(String s, CharSequence cs)
     {
         // was error checking with a for loop but read up on regex for java.
@@ -594,7 +593,8 @@ public class AddNewDataActivity extends AppCompatActivity
             return true;
         }
     }
-    private void AD_FormatAndSaveNewData() // convert input text to proper format before saving to the database
+    // used to first format the input text and then to save the new data through passing it to a DatabaseHelper function //
+    private void AD_FormatAndSaveNewData()
     {
         if(vs_jAddNewData_viewSwitcher.getCurrentView() == ad_vsSwitcher_addStudent)
         {
@@ -610,7 +610,6 @@ public class AddNewDataActivity extends AppCompatActivity
             ln = ln.toLowerCase();
             fn = fn.substring(0,1).toUpperCase() + fn.substring(1);
             ln = ln.substring(0,1).toUpperCase() + ln.substring(1);
-            Log.d("new first name", fn + " " + ln);
             ad_dbHelper.DB_addNewStudentToDatabase(un,fn,ln,em,age,gpa,maj);
         }
         else if(vs_jAddNewData_viewSwitcher.getCurrentView() == ad_vsSwitcher_addMajor)
@@ -621,8 +620,8 @@ public class AddNewDataActivity extends AppCompatActivity
             addedMaj = addedMaj.substring(0,1).toUpperCase() + addedMaj.substring(1);
             ad_dbHelper.DB_addNewMajorToDatabase(addedMaj, prefix);
         }
-
     }
+    // used to reset all the textboxes and bools for the add new student view //
     private void AD_ResetNewStudentTextAndBools()
     {
         ad_goodUsername = false;
@@ -647,6 +646,7 @@ public class AddNewDataActivity extends AppCompatActivity
         tv_j_vsAddNewStudent_gpaError.setVisibility(View.INVISIBLE);
         tv_j_vsAddNewStudent_majorError.setVisibility(View.INVISIBLE);
     }
+    // used to rest all the textboxes and bools for the add new major view //
     private void AD_ResetNewMajorTextAndBools()
     {
         et_j_vsAddNewMajor_majorName.setText("");
@@ -656,6 +656,7 @@ public class AddNewDataActivity extends AppCompatActivity
         ad_goodMajorName = false;
         ad_prefixSelected = false;
     }
+    // used to check if the major name trying to be added already exists //
     private boolean AD_MajorNameAlreadyExists(String s)
     {
         for(int i = 0; i < ad_dbHelper.DB_getListOfMajorNames().size(); i++)
@@ -667,6 +668,8 @@ public class AddNewDataActivity extends AppCompatActivity
         }
         return false;
     }
+    // used to check if the username being entered is already being used //
+    // making it so each username is unique //
     private boolean AD_UsernameAlreadyExists()
     {
         String uname = et_j_vsAddNewStudent_username.getText().toString();
@@ -679,6 +682,8 @@ public class AddNewDataActivity extends AppCompatActivity
         }
         return false;
     }
+    // used to check if the email being entered is already being used //
+    // making it so each email is unique like the username //
     private boolean AD_EmailAlreadyExists()
     {
         String email = et_j_vsAddNewStudent_email.getText().toString();

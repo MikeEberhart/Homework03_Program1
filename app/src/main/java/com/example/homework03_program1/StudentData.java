@@ -1,7 +1,10 @@
+//=================================================================================================//
+// Name: Mike Eberhart
+// Date: 30 September 2024
+// Desc: An application that will allow an admin(you) to add/edit/remove students into the registry
+//=================================================================================================//
 package com.example.homework03_program1;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class StudentData
 {
@@ -17,8 +20,7 @@ public class StudentData
     {
 
     }
-
-    public StudentData(String un, String fn, String ln, String em, int a, double g, int maj) //, boolean sel)
+    public StudentData(String un, String fn, String ln, String em, int a, double g, int maj)
     {
         sd_username = un;
         sd_fname = fn;
@@ -88,11 +90,10 @@ public class StudentData
         sd_major = maj;
     }
 
-
+    // used to pass which student or (pos) was selected on the list view //
     static class PassStudentData
     {
         static int studentPos;
-        static ArrayList<StudentData> passedStudentData;
         public static void setLvMainLongClickPos(int pos)
         {
             studentPos = pos;
@@ -101,23 +102,5 @@ public class StudentData
         {
             return studentPos;
         }
-
-
-        public static void setPassedStudentData(ArrayList<StudentData> sd)
-        {
-            passedStudentData = sd;
-        }
-
-        public static ArrayList<StudentData> getPassedStudentData()
-        {
-            return passedStudentData;
-        }
-        public static StudentData getStudentData()
-        {
-            return passedStudentData.get(studentPos);
-        }
-
-
-
     }
 }

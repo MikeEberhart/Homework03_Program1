@@ -1,13 +1,18 @@
+//=================================================================================================//
+// Name: Mike Eberhart
+// Date: 30 September 2024
+// Desc: An application that will allow an admin(you) to add/edit/remove students into the registry
+//=================================================================================================//
 package com.example.homework03_program1;
 
-import android.bluetooth.BluetoothClass;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
@@ -21,8 +26,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     ArrayList<MajorData> db_listOfMajors;
     ArrayList<String> db_listOfMajNames;
     ArrayList<String> db_listOfPrefixes;
-    ArrayList<String> db_listOfOperators;
-
 
     public DatabaseHelper(Context c)
     {
@@ -30,23 +33,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // change version number to populate a new db
         super(c, DATABASE_NAME, null, 9);
     }
-
     @Override
     public void onCreate(SQLiteDatabase db)
     {
         DB_CreateTables(db);
     }
-
+    // used to drop the old tables so new ones with changes can be populated to the database //
+    // android studio recommended @NonNull so I added it
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    public void onUpgrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion)
     {
         db.execSQL("DROP TABLE IF EXISTS " + PREFIXES_TABLE_NAME + ";");
         db.execSQL("DROP TABLE IF EXISTS " + MAJORS_TABLE_NAME + ";");
         db.execSQL("DROP TABLE IF EXISTS " + STUDENTS_TABLE_NAME + ";");
         onCreate(db);
     }
-
-    private void DB_CreateTables(SQLiteDatabase db)
+    // used to create the tables for the database //
+    // android studio recommended @NonNull so I added it
+    private void DB_CreateTables(@NonNull SQLiteDatabase db)
     {
         Log.d("DB_OnCreate", "DB OnCreate Function");
         // create the tables in the db
@@ -62,14 +66,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "fname varchar(50), lname varchar(50), email varchar(60), age integer, gpa double, " +
                 "majorId integer, foreign key (majorId) references " + MAJORS_TABLE_NAME + "(majorId));");
     }
-    public void DB_PopulateData() // called in main to populate the object classes // might change all this
+    // called in main to populate the database with dummy data //
+    // tables must be created in this order so create the tables don't create errors with primary keys and foreign keys //
+    public void DB_PopulateData()
     {
         Log.d("Database Pop", "Database Pop");
         DB_PrefixesDData();
         DB_MajorsDData();
         DB_StudentDData();
     }
-    private void DB_PrefixesDData() // adding dummy prefix data
+    // used to add dummy prefix data //
+    private void DB_PrefixesDData()
     {
         if (DB_RecordCount(PREFIXES_TABLE_NAME) == 0) {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -103,7 +110,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
-    private void DB_MajorsDData() // adding dummy major data
+    // used to add dummy major data //
+    private void DB_MajorsDData()
     {
         if (DB_RecordCount(MAJORS_TABLE_NAME) == 0) {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -127,7 +135,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
-    private void DB_StudentDData() // adding dummy student data
+    // used to add dummy student data //
+    private void DB_StudentDData()
     {
         if (DB_RecordCount(STUDENTS_TABLE_NAME) == 0) {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -155,12 +164,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
-    public ArrayList<StudentData> DB_getListOfStudentData() // used to  return an ArrayList of the StudentData
+    // used to return an Array of StudentData for the list view adapter for the main list of students //
+    public ArrayList<StudentData> DB_getListOfStudentData()
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_sdataCursor = db.rawQuery("SELECT * FROM " + STUDENTS_TABLE_NAME, null);
-//        String majorNameSelect = "SELECT majorName FROM " + MAJORS_TABLE_NAME + " WHERE majorId = '" + db_sdataCursor.getInt(6) + "';";
-//        Cursor db_mdataCurso = db.rawQuery(majorNameSelect, null);
         db_listOfStudents = new ArrayList<>();
         if (db_sdataCursor != null) {
             db_sdataCursor.moveToFirst();
@@ -178,7 +186,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return db_listOfStudents;
     }
-    public ArrayList<MajorData> DB_getListOfMajorData() // might not need // was used to return an ArrayList of the MajorData
+    // used to return an Array of MajorData for the list view adapter for the search results //
+    public ArrayList<MajorData> DB_getListOfMajorData()
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
@@ -193,7 +202,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return db_listOfMajors;
     }
-    public ArrayList<String> DB_getListOfMajorNames() // only being used to populate spinner data so far
+    // used to return a String Array of major names from the Major table //
+    // while also adding a default string("-Select a Major-") at db_listOfMajNames[0] for a display placeholder for the spinner //
+    public ArrayList<String> DB_getListOfMajorNames()
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
@@ -209,6 +220,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return db_listOfMajNames;
     }
+    // used to return a String Array of prefixes from the Prefix table //
     public ArrayList<String> DB_getListOfPrefixes() // used for spinners
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -225,6 +237,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return db_listOfPrefixes;
     }
+    // used to count the records in a passed table when populating the dummy record data //
+    // to ensure that if return count > 0 dummy records DO NOT get added again to the database //
     public int DB_RecordCount(String tableName)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -240,6 +254,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return count;
     }
+    // used to count and return the total number of records in the Student table //
     public int DB_StudentRecordCount()
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -255,6 +270,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return count;
     }
+    // used to return the data for a single selected student //
     public StudentData DB_getSingleStudentData(int i)
     {
         StudentData temp_student = new StudentData();
@@ -277,6 +293,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("getting row data", temp_student.toString());
         return temp_student;
     }
+    // used to return the data for a single selected major //
     public MajorData DB_getSingleMajorData(int i)
     {
         MajorData temp_major = new MajorData();
@@ -293,12 +310,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return temp_major;
     }
+    // used to add a new student to the database //
     public void DB_addNewStudentToDatabase(String uname, String fname, String lname, String email, int age, double gpa, int major)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addStudent = new ContentValues();
-        // db.execSQL("INSERT INTO " + STUDENTS_TABLE_NAME + "(username, fname, lname, email, age, gpa, majorId) VALUES ('" + uname + "', '" + fname + "', '" + lname + "', '" + email + "', " + age + ", " + gpa + ", " + major + ");");
-        // was using the above method but the method below is easier to type out and easier on the eyes
         addStudent.put("username", uname);
         addStudent.put("fname", fname);
         addStudent.put("lname", lname);
@@ -309,12 +325,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(STUDENTS_TABLE_NAME, null, addStudent);
         db.close();
     }
+    // used to delete a selected student from the database //
     public void DB_deleteStudentFromDatabase(String student)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + STUDENTS_TABLE_NAME + " WHERE username='" + student + "';");
         db.close();
     }
+    // used to add a new major to the database //
     public void DB_addNewMajorToDatabase(String maj, int p)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -324,34 +342,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(MAJORS_TABLE_NAME, null, addMajor);
         db.close();
     }
+    // used to save the updated data to the database for student username = un //
     public void DB_SaveUpdatedStudentData(String un, String fn, String ln, String em, int a, double g, int maj)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String updatedDatabase = "UPDATE " + STUDENTS_TABLE_NAME + " SET fname = '" + fn + "', lname = '" + ln + "', email = '" + em + "', age = " + a + ", gpa = " + g + ", majorId = " + maj + " WHERE username = '" + un + "';";
-        db.execSQL(updatedDatabase);
+        ContentValues updateStudent = new ContentValues();
+        updateStudent.put("fname", fn);
+        updateStudent.put("lname", ln);
+        updateStudent.put("email", em);
+        updateStudent.put("age", a);
+        updateStudent.put("gpa", g);
+        updateStudent.put("majorId", maj);
+        // update to STUDENTS_TABLE_NAME, passing 'updateStudent', where 'username = ?', where ? = un
+        // 'username = ?' is used to set the where with ? used as a placeholder to be replaced by the string 'un'
+        // String[] is used to prevent SQL injection by turning the user input into a string literal
+        // making sure the input is read as a string in the query statement and not part of the statement code
+        db.update(STUDENTS_TABLE_NAME,updateStudent,"username = ?", new String[]{un});
         db.close();
     }
+    // used to search and return an Array of StudentData that met the search results //
     public ArrayList<StudentData> DB_SearchForSetData(String sel)
     {
-
         SQLiteDatabase db = this.getReadableDatabase();
         db_listOfSearchResults = new ArrayList<>();
-        String selectedSearch = "Select * FROM " + STUDENTS_TABLE_NAME + sel + ";";  //WHERE username = " + un + " AND fname = " + fn + " AND lname = " + ln + " AND email = " + em + " AND gpa '" + range + "' " + g + " AND majorId = " + Integer.parseInt(maj) + ";";
-
-        Log.d("before the cursor", "before the cursor");
-
+        String selectedSearch = "Select * FROM " + STUDENTS_TABLE_NAME + sel + ";";
         Cursor db_searchQuery = db.rawQuery(selectedSearch, null);
-        Log.d("after the cursor", "after the cursor");
-
-        int j = 0; //testing
-
         if(db_searchQuery != null && DB_CountOfSearchResults(sel) != 0)
         {
-            Log.d("before loop", "before loop");
             db_searchQuery.moveToFirst();
             do
             {
-                Log.d("start of loop", "start of loop");
                 db_listOfSearchResults.add(new StudentData(db_searchQuery.getString(0),
                         db_searchQuery.getString(1),
                         db_searchQuery.getString(2),
@@ -359,17 +379,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         db_searchQuery.getInt(4),
                         db_searchQuery.getDouble(5),
                         db_searchQuery.getInt(6)));
-                Log.d("list of results", db_listOfSearchResults.get(j).getSd_username());
-                Log.d(String.valueOf(j), "Counting loop");
-                j++;
             } while (db_searchQuery.moveToNext());
             db_searchQuery.close();
             db.close();
-
         }
-        Log.d("Return List", "Return List");
         return db_listOfSearchResults;
     }
+    // used to count the number of search results //
     public int DB_CountOfSearchResults(String sel)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -380,9 +396,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         {
             db_resultCnt.moveToFirst();
             cnt = db_resultCnt.getInt(0);
-            Log.d(String.valueOf(cnt), "results count");
             db_resultCnt.close();
-            // closing the db here will cause error for the search queries saying the pool is closed.
         }
         else
         {

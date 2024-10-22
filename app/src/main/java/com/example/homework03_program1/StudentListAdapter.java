@@ -1,3 +1,8 @@
+//=================================================================================================//
+// Name: Mike Eberhart
+// Date: 30 September 2024
+// Desc: An application that will allow an admin(you) to add/edit/remove students into the registry
+//=================================================================================================//
 package com.example.homework03_program1;
 
 import android.content.Context;

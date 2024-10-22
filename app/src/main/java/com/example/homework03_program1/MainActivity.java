@@ -1,8 +1,8 @@
-//=========================================================================================
+//=================================================================================================//
 // Name: Mike Eberhart
 // Date: 30 September 2024
-// Desc: An application that will allow an admin(you) to add new students into the system
-//=========================================================================================
+// Desc: An application that will allow an admin(you) to add/edit/remove students into the registry
+//=================================================================================================//
 package com.example.homework03_program1;
 
 import android.content.Intent;
@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity
     Intent main_detailsIntent;
     StudentListAdapter main_lv_studentList_adapter;
     ArrayList<StudentData> main_listOfStudents;
-    ArrayList<String> main_listOfMajors;
     DatabaseHelper dbHelper;
     private int selectedStudent;
 
@@ -42,9 +41,8 @@ public class MainActivity extends AppCompatActivity
         Main_InitData();
         Main_ListOfViews();
         Main_OnClickListeners();
-//        this.getCurrentFocus();
-
     }
+    // used to Initialize the Data for the adapter, Intents, and Array from the database //
     private void Main_InitData()
     {
         main_searchIntent = new Intent(this, SearchActivity.class);
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity
         main_listOfStudents = dbHelper.DB_getListOfStudentData(); // gets an arraylist<StudentData> from db to be used to populate the listView data
         main_lv_studentList_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
     }
+    // used to Initialize all the Views //
     private void Main_ListOfViews()
     {
         lv_jMain_listOfStudents = findViewById(R.id.lv_vMain_listOfStudents);
@@ -63,6 +62,7 @@ public class MainActivity extends AppCompatActivity
         iv_jMain_addBtn = findViewById(R.id.iv_vMain_addBtn);
         iv_jMain_deleteBtn = findViewById(R.id.iv_vMain_deleteBtn);
     }
+    // used to house all the OnClickListeners for the ImageView buttons and the ListView OnClick//
     private void Main_OnClickListeners()
     {
         iv_jMain_searchBtn.setOnClickListener(new View.OnClickListener()
@@ -95,27 +95,10 @@ public class MainActivity extends AppCompatActivity
                 }
                 else
                 {
-                    // need error text maybe to let user know to select a student //
+                    // need error text maybe to let user know to select a student? //
                 }
             }
         });
-//        lv_jMain_listOfStudents.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-//        {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-//            {
-//                view.setBackgroundColor(Color.rgb(115, 175, 220));
-//                Log.d("onFocus If True", "OnFocus If True");
-//                selectedStudent = position;
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent)
-//            {
-//                parent.getChildAt(selectedStudent).setBackgroundColor(Color.rgb(255, 251, 254));
-//                Log.d("onFocus If False", "OnFocus If False");
-//                selectedStudent = -1;
-//            }
-//        });
         lv_jMain_listOfStudents.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -129,19 +112,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
-//                dbHelper.getDataFromRow(position); // here for testing remove later
-                StudentData test = dbHelper.DB_getSingleStudentData(position); // testing
-                Log.d("Long Click Area", test.getSd_fname()); // testing
                 StudentData.PassStudentData.setLvMainLongClickPos(position);
                 startActivity(main_detailsIntent);
                 return false;
             }
         });
-
-//        same as above but using a lambda function
-//        iv_jMain_searchBtn.setOnClickListener(v ->
-//        {
-//
-//        });
     }
 }

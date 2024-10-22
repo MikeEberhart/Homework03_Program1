@@ -1,3 +1,8 @@
+//=================================================================================================//
+// Name: Mike Eberhart
+// Date: 30 September 2024
+// Desc: An application that will allow an admin(you) to add/edit/remove students into the registry
+//=================================================================================================//
 package com.example.homework03_program1;
 
 import java.util.ArrayList;
@@ -45,14 +50,12 @@ public class MajorData
         md_majorPrefix = prefix;
     }
 
-    // static class for MajorData //
+    // used to pass bools to which view is accessing the add new major view //
+    // mainly needed since I'm using ViewSwitcher to switch between views //
     static class PassMajorData
     {
         private static boolean addMajorSelected;
         private static boolean  backToDetails;
-        static ArrayList<MajorData> passedMajorData;
-        static ArrayList<String> mp_majorPrefixes;
-        static ArrayList<String> mp_majorNames;
 
         public static void setMP_AddMajorFromDetails(boolean selected)
         {
@@ -69,40 +72,6 @@ public class MajorData
         public static boolean getMP_AddMajorBackToDetails()
         {
             return backToDetails;
-        }
-
-
-        public static void setMp_MajorPrefixes(ArrayList<String> mp)
-        {
-            mp_majorPrefixes = mp;
-        }
-        public static void setMp_MajorNames(ArrayList<String> mn)
-        {
-            mp_majorNames = mn;
-        }
-        public static ArrayList<String> getMp_allPrefixes() // used for the spinner in the add new major screen
-        {
-            return mp_majorPrefixes;
-        }
-        public static ArrayList<String> getMp_allMajorNames() // used for the spinner in the search screen
-        {
-            return mp_majorNames;
-        }
-        public static String getMp_PrefixName(int pos)
-        {
-            return mp_majorPrefixes.get(pos);
-        }
-        public static String getMp_MajorName(int pos)
-        {
-            return mp_majorNames.get(pos);
-        }
-        public static void setPassedMajorData(ArrayList<MajorData> md)
-        {
-            passedMajorData = md;
-        }
-        public static MajorData getMajorData(int pos)
-        {
-            return passedMajorData.get(pos);
         }
     }
 

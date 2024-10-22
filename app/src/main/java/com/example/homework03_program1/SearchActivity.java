@@ -1,3 +1,8 @@
+//=================================================================================================//
+// Name: Mike Eberhart
+// Date: 30 September 2024
+// Desc: An application that will allow an admin(you) to add/edit/remove students into the registry
+//=================================================================================================//
 package com.example.homework03_program1;
 
 import android.content.Context;
@@ -16,10 +21,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,7 +76,6 @@ public class SearchActivity extends AppCompatActivity
     private boolean sa_majorSelected;
     private boolean sa_isReadyToSearch;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -86,6 +88,7 @@ public class SearchActivity extends AppCompatActivity
         SA_TextChangedEventListener();
         vs_jSearch_viewSwitcher.setAnimateFirstView(true);
     }
+    // used to Initialized the Data for the adapters and Intents along with the Arrays from the database //
     private void SA_InitData()
     {
         sa_mainIntent = new Intent(this, MainActivity.class);
@@ -105,6 +108,7 @@ public class SearchActivity extends AppCompatActivity
         sa_spGpaRangeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, sa_listOfRangeOperators);
         sa_spMajAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, sa_listOfMajNames);
     }
+    // used to house all the Views being Initialized //
     private void SA_ListOfViews()
     {
         // Main Search Activity //
@@ -140,6 +144,7 @@ public class SearchActivity extends AppCompatActivity
         iv_j_vsResults_backBtn = findViewById(R.id.im_vsResults_backBtn);
         tv_j_vsResults_noResultsFoundError = findViewById(R.id.tv_vsResults_noResultsFoundError);
     }
+    // used to house all the OnClickListeners for all the ImageView buttons and Spinner//
     private void SA_OnClickListeners()
     {
         iv_jSearch_homeBtn.setOnClickListener(new View.OnClickListener()
@@ -155,7 +160,7 @@ public class SearchActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(vs_jSearch_viewSwitcher.getCurrentView() != sa_vsSwitcher_results && sa_isReadyToSearch) // needs bool to check if the data that was entered is good
+                if(vs_jSearch_viewSwitcher.getCurrentView() != sa_vsSwitcher_results && sa_isReadyToSearch)
                 {
                     tv_j_vsResults_noResultsFoundError.setVisibility(View.INVISIBLE);
                     SA_GetSearchFields();
@@ -209,6 +214,7 @@ public class SearchActivity extends AppCompatActivity
             }
         });
     }
+    // used to house all the TextChangedEventListeners for all the EditText //
     private void SA_TextChangedEventListener()
     {
         et_j_vsSearch_username.addTextChangedListener(new TextWatcher()
@@ -222,18 +228,15 @@ public class SearchActivity extends AppCompatActivity
             {
                 if(SA_BadUserInput(ALLOWED_USERNAME_CHARS, s) && !et_j_vsSearch_username.getText().toString().isEmpty())
                 {
-                    Log.d("TextChange-BadChars", "TextChange-BadChars");
                     sa_goodUsername = false;
                     tv_j_vsSearch_usernameError.setVisibility(View.VISIBLE);
                 }
                 else if(et_j_vsSearch_username.getText().toString().isEmpty())
                 {
-                    Log.d("TextChange-Empty", "TextChange-Empty");
                     sa_goodUsername = false;
                 }
                 else
                 {
-                    Log.d("TextChange-Good", "TextChange-Good");
                     sa_goodUsername = true;
                     sa_isReadyToSearch = true;
                     tv_j_vsSearch_usernameError.setVisibility(View.INVISIBLE);
@@ -368,11 +371,11 @@ public class SearchActivity extends AppCompatActivity
             {
             }
         });
-
     }
+    // used to check for bad user input depending on the "valid" input pattern (s) and text being entered (cs)
     private boolean SA_BadUserInput(String s, CharSequence cs)
     {
-        // was error checking with this for loop but read up on regex for java. pretty similar to how it's used in python as well.
+        // was error checking with this for loop but read up on regex for java. //
         Pattern goodChars = Pattern.compile(s);
         Matcher checkingChars = goodChars.matcher(cs);
         boolean dataCheck = checkingChars.find();
@@ -385,13 +388,13 @@ public class SearchActivity extends AppCompatActivity
             return true;
         }
     }
+    // used to create the query select statement depending on what valid data was entered
     private void SA_GetSearchFields()
     {
         String searchData = " WHERE ";
         boolean notFirstEntry = false;
         if(sa_goodUsername)
         {
-            Log.d("goodUsername", "goodUsername");
             searchData = searchData + "username = '" + et_j_vsSearch_username.getText().toString() + "' ";
             notFirstEntry = true;
         }
@@ -402,12 +405,10 @@ public class SearchActivity extends AppCompatActivity
             fn = fn.substring(0,1).toUpperCase() + fn.substring(1);
             if(notFirstEntry)
             {
-                Log.d("goodfname", "goodfname");
                 searchData = searchData + "AND fname = '" + fn + "' ";
             }
             else
             {
-                Log.d("badfname", "badfname");
                 searchData = searchData + "fname = '" + fn + "' ";
                 notFirstEntry = true;
             }
@@ -419,13 +420,11 @@ public class SearchActivity extends AppCompatActivity
             ln = ln.substring(0,1).toUpperCase() + ln.substring(1);
             if(notFirstEntry)
             {
-                Log.d("goodlname", "goodlname");
                 searchData = searchData + "AND lname = '" + ln + "' ";
             }
             else
             {
-                Log.d("badlname", "badlname");
-                searchData = searchData + "fname = '" + ln + "' ";
+                searchData = searchData + "lname = '" + ln + "' ";
                 notFirstEntry = true;
             }
         }
@@ -433,12 +432,10 @@ public class SearchActivity extends AppCompatActivity
         {
             if(notFirstEntry)
             {
-                Log.d("goodemail", "goodemail");
                 searchData = searchData + "AND email = '" + et_j_vsSearch_email.getText().toString() + "' ";
             }
             else
             {
-                Log.d("bademail", "bademail");
                 searchData = searchData + "email = '" + et_j_vsSearch_email.getText().toString() + "' ";
                 notFirstEntry = true;
             }
@@ -447,12 +444,10 @@ public class SearchActivity extends AppCompatActivity
         {
             if(notFirstEntry)
             {
-                Log.d("goodgpa", "goodgpa");
                 searchData = searchData + "AND gpa " + sa_listOfRangeOperators.get(sp_j_vsSearch_gpaRange.getSelectedItemPosition()) + " " + et_j_vsSearch_gpa.getText().toString() + " ";
             }
             else
             {
-                Log.d("badgpa", "badgpa");
                 searchData = searchData + "gpa " + sa_listOfRangeOperators.get(sp_j_vsSearch_gpaRange.getSelectedItemPosition()) + " " + et_j_vsSearch_gpa.getText().toString() + " ";
                 notFirstEntry = true;
             }
@@ -462,24 +457,22 @@ public class SearchActivity extends AppCompatActivity
             int selectedNum = sp_j_vsSearch_majorList.getSelectedItemPosition() - 1;
             if(notFirstEntry)
             {
-                Log.d("goodmajor", "goodmajor");
                 searchData = searchData + "AND majorId = " + selectedNum + " ";
             }
             else
             {
-                Log.d("badmajor", "badmajor");
                 searchData = searchData + "majorId = " + selectedNum + " ";
             }
         }
         if(sa_goodUsername || sa_goodFname || sa_goodLname || sa_goodEmail || sa_goodGpa || sa_majorSelected)
         {
-            Log.d("something has been entered", "something has been entered");
             tv_j_vsSearch_emptySearchError.setVisibility(View.INVISIBLE);
             sa_listOfSearchResults = sa_dbHelper.DB_SearchForSetData(searchData);
             sa_lv_resultsList_adapter = new SearchResultsAdapter(SearchActivity.this, sa_listOfSearchResults, sa_dbHelper.DB_getListOfMajorData(), sa_dbHelper.DB_getListOfPrefixes());
             lv_j_vsResults_searchResults.setAdapter(sa_lv_resultsList_adapter);
         }
     }
+    // used to reset all the textboxes and bools //
     private void SA_ResetTextAndBools()
     {
         et_j_vsSearch_username.setText("");

@@ -1,3 +1,8 @@
+//=================================================================================================//
+// Name: Mike Eberhart
+// Date: 30 September 2024
+// Desc: An application that will allow an admin(you) to add/edit/remove students into the registry
+//=================================================================================================//
 package com.example.homework03_program1;
 
 import android.content.Context;
@@ -71,14 +76,12 @@ public class DetailsActivity extends AppCompatActivity
     private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z](?:[a-zA-Z0-9_.-]*[a-zA-Z0-9])?+@[a-zA-Z.]+\\.edu$"; // regex string formatted so the last char in the email name can't be a special char and the school email can only contain letters and '.' and the last part must have .edu
     private static final String ALLOWED_AGE_CHARS =  "^(1[6789]|[2-9][0-9])$"; // regex string formatted making sure the minimal age is 16 with no maximal
     private static final String ALLOWED_GPA_CHARS = "^(1(\\.\\d+)|2(\\.\\d+)|3(\\.\\d+)|4(\\.0))$"; // regex string formatted so gpa range is 1.0 to 4.0
-//    private boolean ad_goodUsername;
     private boolean da_goodFname;
     private boolean da_goodLname;
     private boolean da_goodEmail;
     private boolean da_goodAge;
     private boolean da_goodGpa;
     private boolean da_majorSelected;
-
 
 
     @Override
@@ -93,7 +96,9 @@ public class DetailsActivity extends AppCompatActivity
         DA_SetTextViewsData(da_passedStudentData, da_passedMajorData);
         DA_OnClickListener();
         DA_TextChangedEventListener();
-
+        // if statement used to check which view this activity was started from //
+        // since I'm using ViewSwitcher to cut down on the number of activities //
+        // really just wanted to try it out this way and it worked so I ran with it //
         if(MajorData.PassMajorData.getMP_AddMajorBackToDetails())
         {
             vs_jDetails_viewSwitcher.setAnimateFirstView(true);
@@ -112,6 +117,7 @@ public class DetailsActivity extends AppCompatActivity
             vs_jDetails_viewSwitcher.setAnimateFirstView(true);
         }
     }
+    // used to Initialized the Data for the adapters and Intents along with the Arrays from the database //
     private void DA_InitData()
     {
 
@@ -130,6 +136,7 @@ public class DetailsActivity extends AppCompatActivity
         da_spMajAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, da_passedMajorNames);
 
     }
+    // used to house all the Views being Initialized //
     private void DA_ListOfViews()
     {
         // Main Views //
@@ -172,6 +179,7 @@ public class DetailsActivity extends AppCompatActivity
         tv_j_vsUpdate_gpaError.setVisibility(View.INVISIBLE);
         tv_j_vsUpdate_majorError.setVisibility(View.INVISIBLE);
     }
+    // used to set all the data in the text views and edit text //
     private void DA_SetTextViewsData(StudentData sd, MajorData md)
     {
         // old way of passing the data with array of all students before passing the data for just a single student.
@@ -200,6 +208,7 @@ public class DetailsActivity extends AppCompatActivity
         sp_j_vsUpdate_major.setSelection(sd.getSd_major() + 1);
 
     }
+    // used to house all the OnClickListeners //
     private void DA_OnClickListener()
     {
         // Main Listeners
@@ -308,21 +317,7 @@ public class DetailsActivity extends AppCompatActivity
             }
         });
     }
-    private boolean DA_BadUserInput(String s, CharSequence cs)
-    {
-        // was error checking with a for loop but read up on regex for java.
-        Pattern goodChars = Pattern.compile(s);
-        Matcher checkingChars = goodChars.matcher(cs);
-        boolean dataCheck = checkingChars.find();
-        if(dataCheck)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
+    // used to house all the TextChangeEventListener //
     private void DA_TextChangedEventListener()
     {
         et_j_vsUpdate_fname.addTextChangedListener(new TextWatcher()
@@ -469,8 +464,29 @@ public class DetailsActivity extends AppCompatActivity
             }
         });
     }
+    // used to check for bad user input depending on the "valid" input pattern (s) and text being entered (cs) //
+    private boolean DA_BadUserInput(String s, CharSequence cs)
+    {
+        // was error checking with a for loop but read up on regex for java.
+        Pattern goodChars = Pattern.compile(s);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean dataCheck = checkingChars.find();
+        if(dataCheck)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    // used to check if any EditText boxes are empty making sure the add button isn't clicked while the boxes are empty //
     private void DA_EmptyInputErrorChecker()
     {
+        // check to see if text box is empty.
+        // Used to show an error if user hits the add btn
+        // AD_BadUserInput check while text is being typed not on initial load
+        // and the beforeTextChanged didn't work like I wanted
         if(vs_jDetails_viewSwitcher.getCurrentView() == da_vsSwitcher_update)
         {
             if(et_j_vsUpdate_fname.getText().toString().isEmpty())
@@ -505,6 +521,7 @@ public class DetailsActivity extends AppCompatActivity
             }
         }
     }
+    // used to reset all the textboxes and bools for the update view //
     private void DA_ResetUpdateBoolsAndErrors()
     {
         da_goodFname = false;
@@ -520,6 +537,7 @@ public class DetailsActivity extends AppCompatActivity
         tv_j_vsUpdate_gpaError.setVisibility(View.INVISIBLE);
         tv_j_vsUpdate_majorError.setVisibility(View.INVISIBLE);
     }
+    // used to first format the input text and then to save the new data through passing it to a DatabaseHelper function //
     private void DA_FormatAndSaveUpdatedStudent()
     {
         String un = da_passedStudentData.getSd_username();
@@ -537,6 +555,8 @@ public class DetailsActivity extends AppCompatActivity
         da_dbHelper.DB_SaveUpdatedStudentData(un,fn,ln,em,age,gpa,maj);
 
     }
+    // used to check if the email being entered is already being used //
+    // making it so each email is unique like the username //
     private boolean DA_EmailAlreadyExists()
     {
         String email = et_j_vsUpdate_email.getText().toString();
@@ -550,5 +570,4 @@ public class DetailsActivity extends AppCompatActivity
         }
         return false;
     }
-
 }
