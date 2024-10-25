@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity
     ImageView iv_jMain_searchBtn;
     ImageView iv_jMain_addBtn;
     ImageView iv_jMain_deleteBtn;
+    TextView tv_jMain_deleteStudentError;
     Intent main_searchIntent;
     Intent main_addIntent;
     Intent main_detailsIntent;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity
         dbHelper.DB_PopulateData();
         main_listOfStudents = dbHelper.DB_getListOfStudentData(); // gets an arraylist<StudentData> from db to be used to populate the listView data
         main_lv_studentList_adapter = new StudentListAdapter(MainActivity.this, main_listOfStudents);
+        selectedStudent = -1;
     }
     // used to Initialize all the Views //
     private void Main_ListOfViews()
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity
         iv_jMain_searchBtn = findViewById(R.id.iv_vMain_searchBtn);
         iv_jMain_addBtn = findViewById(R.id.iv_vMain_addBtn);
         iv_jMain_deleteBtn = findViewById(R.id.iv_vMain_deleteBtn);
+        tv_jMain_deleteStudentError = findViewById(R.id.tv_v_main_deleteStudentError);
+        tv_jMain_deleteStudentError.setVisibility(View.INVISIBLE);
     }
     // used to house all the OnClickListeners for the ImageView buttons and the ListView OnClick//
     private void Main_OnClickListeners()
@@ -95,6 +100,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 else
                 {
+                    tv_jMain_deleteStudentError.setVisibility(View.VISIBLE);
                     // need error text maybe to let user know to select a student? //
                 }
             }
@@ -104,6 +110,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+                tv_jMain_deleteStudentError.setVisibility(View.INVISIBLE);
                 selectedStudent = position;
             }
             //look for something to edit the background color so it changes with whoever is selected then changes back when they are no longer selected

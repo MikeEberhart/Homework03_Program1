@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         // create database and give it a version number
         // change version number to populate a new db
-        super(c, DATABASE_NAME, null, 9);
+        super(c, DATABASE_NAME, null, 10);
     }
     @Override
     public void onCreate(SQLiteDatabase db)

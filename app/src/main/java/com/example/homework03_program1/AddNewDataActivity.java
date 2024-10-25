@@ -28,6 +28,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import kotlin.jvm.internal.Ref;
+
 public class AddNewDataActivity extends AppCompatActivity
 {
     // Main Views //
@@ -279,8 +281,15 @@ public class AddNewDataActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(!ad_prefixSelected)
+                if(AD_MajorNameAlreadyExists(et_j_vsAddNewMajor_majorName.getText().toString()))
                 {
+                    Log.d("major name exists", "major name exists");
+                    tv_j_vsAddNewMajor_majorNameError.setText("Major Already Exists");
+                    tv_j_vsAddNewMajor_majorNameError.setVisibility(View.VISIBLE);
+                }
+                else if(!ad_prefixSelected)
+                {
+                    Log.d("prefix not selected", "prefix not selected");
                     tv_j_vsAddNewMajor_majorPrefixError.setVisibility(View.VISIBLE);
                     if(et_j_vsAddNewMajor_majorName.getText().toString().isEmpty())
                     {
@@ -288,13 +297,9 @@ public class AddNewDataActivity extends AppCompatActivity
                         tv_j_vsAddNewMajor_majorNameError.setVisibility(View.VISIBLE);
                     }
                 }
-                else if(AD_MajorNameAlreadyExists(et_j_vsAddNewMajor_majorName.getText().toString()))
+                else if(ad_goodMajorName) // && ad_prefixSelected)
                 {
-                    tv_j_vsAddNewMajor_majorNameError.setText("Major Already Exists");
-                    tv_j_vsAddNewMajor_majorNameError.setVisibility(View.VISIBLE);
-                }
-                else if(ad_goodMajorName && ad_prefixSelected)
-                {
+                    Log.d("add major name", "add major name");
                     AD_FormatAndSaveNewData();
                     AD_ResetNewMajorTextAndBools();
                 }
@@ -583,15 +588,10 @@ public class AddNewDataActivity extends AppCompatActivity
         // was error checking with a for loop but read up on regex for java.
         Pattern goodChars = Pattern.compile(s);
         Matcher checkingChars = goodChars.matcher(cs);
-        boolean dataCheck = checkingChars.find();
-        if(dataCheck)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        // Returns true when typed char is found in allowed list of chars. False if char is not found //
+        boolean doesContainChar = checkingChars.find();
+        // returns the opposite of what bool is set by the above line //
+        return !doesContainChar;
     }
     // used to first format the input text and then to save the new data through passing it to a DatabaseHelper function //
     private void AD_FormatAndSaveNewData()
@@ -615,10 +615,16 @@ public class AddNewDataActivity extends AppCompatActivity
         else if(vs_jAddNewData_viewSwitcher.getCurrentView() == ad_vsSwitcher_addMajor)
         {
             String addedMaj = et_j_vsAddNewMajor_majorName.getText().toString();
+            String[] majorName = addedMaj.split("\\s+");
+            StringBuilder formattedMajName = new StringBuilder();
+            for (String name : majorName)
+            {
+                String tempName = name.toLowerCase();
+                tempName = name.substring(0,1).toUpperCase() + name.substring(1) + " ";
+                formattedMajName.append(tempName);
+            }
             int prefix = sp_j_vsAddNewMajor_majorPrefix.getSelectedItemPosition() - 1;
-            addedMaj = addedMaj.toLowerCase();
-            addedMaj = addedMaj.substring(0,1).toUpperCase() + addedMaj.substring(1);
-            ad_dbHelper.DB_addNewMajorToDatabase(addedMaj, prefix);
+            ad_dbHelper.DB_addNewMajorToDatabase(formattedMajName.toString(), prefix);
         }
     }
     // used to reset all the textboxes and bools for the add new student view //
@@ -659,10 +665,12 @@ public class AddNewDataActivity extends AppCompatActivity
     // used to check if the major name trying to be added already exists //
     private boolean AD_MajorNameAlreadyExists(String s)
     {
-        for(int i = 0; i < ad_dbHelper.DB_getListOfMajorNames().size(); i++)
+        ArrayList<String> majorNames = ad_dbHelper.DB_getListOfMajorNames();
+        for(int i = 0; i < majorNames.size(); i++)
         {
-            if(ad_dbHelper.DB_getListOfMajorNames().get(i).equals(s))
+            if(majorNames.get(i).equalsIgnoreCase(s))
             {
+                Log.d("inside major name bool", "inside major name bool");
                 return true;
             }
         }
