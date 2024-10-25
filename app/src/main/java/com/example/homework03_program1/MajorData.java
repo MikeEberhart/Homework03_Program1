@@ -5,8 +5,6 @@
 //=================================================================================================//
 package com.example.homework03_program1;
 
-import java.util.ArrayList;
-
 public class MajorData
 {
     int md_majorId;

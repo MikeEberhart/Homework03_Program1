@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,10 +19,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -269,10 +266,8 @@ public class DetailsActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Log.d("Outside save", "Outside save");
                 if(da_goodFname && da_goodLname && da_goodEmail && da_goodAge && da_goodGpa && da_majorSelected && !DA_EmailAlreadyExists())
                 {
-                    Log.d("Updating Student", "Updating Student");
                     DA_FormatAndSaveUpdatedStudent();
                     da_passedStudentData = da_dbHelper.DB_getSingleStudentData(StudentData.PassStudentData.getLvMainLongClickPos());
                     da_passedMajorData = da_dbHelper.DB_getSingleMajorData(da_passedStudentData.getSd_major());

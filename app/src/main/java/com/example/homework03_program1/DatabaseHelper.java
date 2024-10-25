@@ -10,10 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -52,7 +49,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // android studio recommended @NonNull so I added it
     private void DB_CreateTables(@NonNull SQLiteDatabase db)
     {
-        Log.d("DB_OnCreate", "DB OnCreate Function");
         // create the tables in the db
         // create the tables backwards starting with the one with no foreign key
         // cannot create a table that uses a foreign key before the foreign key's table has been created
@@ -70,7 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // tables must be created in this order so create the tables don't create errors with primary keys and foreign keys //
     public void DB_PopulateData()
     {
-        Log.d("Database Pop", "Database Pop");
         DB_PrefixesDData();
         DB_MajorsDData();
         DB_StudentDData();

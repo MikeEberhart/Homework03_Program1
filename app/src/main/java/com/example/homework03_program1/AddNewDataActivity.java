@@ -5,13 +5,11 @@
 //=================================================================================================//
 package com.example.homework03_program1;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,11 +22,8 @@ import android.widget.ViewSwitcher;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import kotlin.jvm.internal.Ref;
 
 public class AddNewDataActivity extends AppCompatActivity
 {
@@ -283,13 +278,11 @@ public class AddNewDataActivity extends AppCompatActivity
             {
                 if(AD_MajorNameAlreadyExists(et_j_vsAddNewMajor_majorName.getText().toString()))
                 {
-                    Log.d("major name exists", "major name exists");
                     tv_j_vsAddNewMajor_majorNameError.setText("Major Already Exists");
                     tv_j_vsAddNewMajor_majorNameError.setVisibility(View.VISIBLE);
                 }
                 else if(!ad_prefixSelected)
                 {
-                    Log.d("prefix not selected", "prefix not selected");
                     tv_j_vsAddNewMajor_majorPrefixError.setVisibility(View.VISIBLE);
                     if(et_j_vsAddNewMajor_majorName.getText().toString().isEmpty())
                     {
@@ -299,7 +292,6 @@ public class AddNewDataActivity extends AppCompatActivity
                 }
                 else if(ad_goodMajorName) // && ad_prefixSelected)
                 {
-                    Log.d("add major name", "add major name");
                     AD_FormatAndSaveNewData();
                     AD_ResetNewMajorTextAndBools();
                 }
@@ -670,7 +662,6 @@ public class AddNewDataActivity extends AppCompatActivity
         {
             if(majorNames.get(i).equalsIgnoreCase(s))
             {
-                Log.d("inside major name bool", "inside major name bool");
                 return true;
             }
         }
