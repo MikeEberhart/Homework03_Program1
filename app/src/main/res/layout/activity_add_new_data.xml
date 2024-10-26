@@ -42,7 +42,7 @@
         android:layout_width="90dp"
         android:layout_height="65dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/listview_rounded_edges"
+        android:background="@drawable/btn_rounded_edges"
         android:backgroundTint="@color/lions_blue"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -20,3 +20,12 @@
  student just click the update button and you will be brought to screen allow you to update everything 
  but the "Username" of the current student. You can even add a new major from this page if you desire.
  Hopefully that wasn't to long of a run down of the app description. ENJOY!!!
+
+// Other Comments //
+ I had some issues at first with how I should properly handle the database reading and writing of the 
+ data. But after some messing with it and talks we've had in class, I think I've gotten a better understanding
+ of it works. I also had a few issues with the way I set up my app. I used ViewSwitcher to cut down on the 
+ number of activities. I mainly did it this way just to see if I could. ViewSwitcher can hold 2 child views
+ so switching between them I had a few issues. So I added some checks to see which view was active and
+ which wasn't. Doing so fixed some of my issues. There were other small issues I ran across but nothing 
+ that gave me to much trouble.

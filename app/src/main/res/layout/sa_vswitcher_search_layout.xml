@@ -298,8 +298,8 @@
 
     <ImageView
         android:id="@+id/iv_vsSearch_searchBtn"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/btn_rounded_edges"
@@ -321,5 +321,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_vsSearch_resetBtn"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/btn_rounded_edges"
+        android:backgroundTint="@color/lions_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/reset_icon_blk" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

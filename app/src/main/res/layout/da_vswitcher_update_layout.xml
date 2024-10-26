@@ -250,8 +250,8 @@
 
     <ImageView
         android:id="@+id/iv_vsUpdate_backBtn"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/btn_rounded_edges"
@@ -297,8 +297,8 @@
 
     <ImageView
         android:id="@+id/iv_vsUpdate_saveChangesBtn"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/btn_rounded_edges"

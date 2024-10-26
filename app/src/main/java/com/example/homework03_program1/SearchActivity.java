@@ -40,6 +40,7 @@ public class SearchActivity extends AppCompatActivity
     DatabaseHelper sa_dbHelper;
     // Search View Layout //
     ImageView iv_j_vsSearch_searchBtn;
+    ImageView iv_j_vsSearch_resetBtn;
     EditText et_j_vsSearch_username;
     EditText et_j_vsSearch_fname;
     EditText et_j_vsSearch_lname;
@@ -119,6 +120,7 @@ public class SearchActivity extends AppCompatActivity
         tv_j_vsSearch_emptySearchError = findViewById(R.id.tv_vsSearch_emptySearchError);
         // Search View Layout //
         iv_j_vsSearch_searchBtn = findViewById(R.id.iv_vsSearch_searchBtn);
+        iv_j_vsSearch_resetBtn = findViewById(R.id.iv_vsSearch_resetBtn);
         et_j_vsSearch_username = findViewById(R.id.et_vsSearch_username);
         et_j_vsSearch_fname = findViewById(R.id.et_vsSearch_fname);
         et_j_vsSearch_lname = findViewById(R.id.et_vsSearch_lname);
@@ -178,6 +180,15 @@ public class SearchActivity extends AppCompatActivity
 
             }
         });
+        iv_j_vsSearch_resetBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                SA_ClearText();
+                SA_ResetBoolsAndErrors();
+            }
+        });
         iv_j_vsResults_backBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -185,7 +196,7 @@ public class SearchActivity extends AppCompatActivity
             {
                 if( vs_jSearch_viewSwitcher.getCurrentView() == sa_vsSwitcher_results)
                 {
-                    SA_ResetTextAndBools();
+                    SA_ResetBoolsAndErrors();
                     tv_j_vSearch_headerText.setText("Student Search");
                     tv_j_vsResults_noResultsFoundError.setVisibility(View.INVISIBLE);
                     vs_jSearch_viewSwitcher.showNext();
@@ -471,8 +482,8 @@ public class SearchActivity extends AppCompatActivity
             lv_j_vsResults_searchResults.setAdapter(sa_lv_resultsList_adapter);
         }
     }
-    // used to reset all the textboxes and bools //
-    private void SA_ResetTextAndBools()
+    // used to clear the text and set the spinners back to the default position //
+    private void SA_ClearText()
     {
         et_j_vsSearch_username.setText("");
         et_j_vsSearch_fname.setText("");
@@ -481,6 +492,10 @@ public class SearchActivity extends AppCompatActivity
         et_j_vsSearch_gpa.setText("");
         sp_j_vsSearch_gpaRange.setSelection(0);
         sp_j_vsSearch_majorList.setSelection(0);
+    }
+    // used to reset all the textboxes and bools //
+    private void SA_ResetBoolsAndErrors()
+    {
         tv_j_vsSearch_usernameError.setVisibility(View.INVISIBLE);
         tv_j_vsSearch_fnameError.setVisibility(View.INVISIBLE);
         tv_j_vsSearch_lnameError.setVisibility(View.INVISIBLE);

@@ -21,8 +21,8 @@
 
     <ImageButton
         android:id="@+id/im_vsResults_backBtn"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/btn_rounded_edges"
