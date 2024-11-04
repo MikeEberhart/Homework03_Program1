@@ -10,6 +10,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         // create database and give it a version number
         // change version number to populate a new db
-        super(c, DATABASE_NAME, null, 10);
+        super(c, DATABASE_NAME, null, 11);
     }
     @Override
     public void onCreate(SQLiteDatabase db)
@@ -206,16 +208,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor db_mdataCursor = db.rawQuery("SELECT * FROM " + MAJORS_TABLE_NAME, null);
         db_listOfMajNames = null;
+        Log.d("db before", "db before");
         if (db_mdataCursor.moveToFirst())
         {
+            Log.d("db inside", "db inside");
             db_listOfMajNames = new ArrayList<>();
             db_listOfMajNames.add("-Select a Major-"); // setting pos 0 to -Select Major- to act as a null selection and display mainly for AddNewStudent spinner
             do {
                 db_listOfMajNames.add(db_mdataCursor.getString(1));
+
             } while (db_mdataCursor.moveToNext());
             db_mdataCursor.close();
             db.close();
+            Log.d("major names", db_listOfMajNames.toString());
         }
+        Log.d("db after", "db after");
         return db_listOfMajNames;
     }
     // used to return a String Array of prefixes from the Prefix table //

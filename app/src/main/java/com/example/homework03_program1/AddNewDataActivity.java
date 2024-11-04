@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -292,6 +293,7 @@ public class AddNewDataActivity extends AppCompatActivity
                 }
                 else if(ad_goodMajorName) // && ad_prefixSelected)
                 {
+                    Log.d("on click good name", "on click good name");
                     AD_FormatAndSaveNewData();
                     AD_ResetNewMajorTextAndBools();
                 }
@@ -503,6 +505,12 @@ public class AddNewDataActivity extends AppCompatActivity
                     tv_j_vsAddNewMajor_majorNameError.setText("Letters Only");
                     tv_j_vsAddNewMajor_majorNameError.setVisibility(View.VISIBLE);
                 }
+                else if(AD_MajorNameAlreadyExists(s.toString()))
+                {
+                    tv_j_vsAddNewMajor_majorNameError.setText("Major Already Exists");
+                    tv_j_vsAddNewMajor_majorNameError.setVisibility(View.VISIBLE);
+                    ad_goodMajorName = false;
+                }
                 else
                 {
                     ad_goodMajorName = true;
@@ -647,6 +655,7 @@ public class AddNewDataActivity extends AppCompatActivity
     // used to rest all the textboxes and bools for the add new major view //
     private void AD_ResetNewMajorTextAndBools()
     {
+        ad_spMajAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ad_dbHelper.DB_getListOfMajorNames());
         et_j_vsAddNewMajor_majorName.setText("");
         sp_j_vsAddNewMajor_majorPrefix.setSelection(0);
         tv_j_vsAddNewMajor_majorNameError.setVisibility(View.INVISIBLE);
@@ -657,14 +666,21 @@ public class AddNewDataActivity extends AppCompatActivity
     // used to check if the major name trying to be added already exists //
     private boolean AD_MajorNameAlreadyExists(String s)
     {
+        Log.d("major before", s);
         ArrayList<String> majorNames = ad_dbHelper.DB_getListOfMajorNames();
+        Log.d("major after", majorNames.toString());
         for(int i = 0; i < majorNames.size(); i++)
         {
-            if(majorNames.get(i).equalsIgnoreCase(s))
+
+            Log.d("major inside", majorNames.get(i));
+            String mName = majorNames.get(i);
+            if(mName.equalsIgnoreCase(s))
             {
+                Log.d("major true", majorNames.get(i));
                 return true;
             }
         }
+        Log.d("major false", "false");
         return false;
     }
     // used to check if the username being entered is already being used //
